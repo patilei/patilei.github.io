@@ -11,7 +11,7 @@
   
   <title>
     
-      归档 
+      js实现图片转换为Base64 
       
       
       |
@@ -105,233 +105,136 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">js实现图片转换为Base64</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2018-12-12 17:19:52
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/JavaScript/" title="JavaScript">
+                    <b>#</b> JavaScript
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。<br>常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。</p>
+<h3 id="上传图片"><a href="#上传图片" class="headerlink" title="上传图片"></a>上传图片</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">name</span>=<span class="string">&quot;photo&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;图片&quot;</span> @<span class="attr">change</span>=<span class="string">&quot;getFile($event)&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取图片"><a href="#获取图片" class="headerlink" title="获取图片"></a>获取图片</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取图片并调用deal()将图片转换为Base64</span></span><br><span class="line"><span class="function"><span class="title">getFile</span>(<span class="params">event</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.deal(event.target.files[<span class="number">0</span>])</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="转换成Base64"><a href="#转换成Base64" class="headerlink" title="转换成Base64"></a>转换成Base64</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">deal</span>(<span class="params">photo</span>)</span> &#123;</span><br><span class="line">  <span class="comment">// 判断支不支持FileReader</span></span><br><span class="line">  <span class="keyword">if</span> (!photo || !<span class="built_in">window</span>.FileReader) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;未选择图片或不支持上传图片！&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 判断上传的文件是否是图片格式</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/^image/</span>.test(photo.type)) &#123;</span><br><span class="line">    <span class="comment">//创建一个reader</span></span><br><span class="line">    <span class="keyword">let</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">    <span class="comment">//将图片转成base64格式</span></span><br><span class="line">    reader.readAsDataURL(photo);</span><br><span class="line">    reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      base64_photo = reader.result; <span class="comment">// base64_photo是转换好的结果</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">&#x27;请选择一张图片！&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><blockquote>
+<p><code>base64_photo</code>在<code>reader.onload</code>函数中，而<code>reader.onload</code>又在<code>deal</code>函数中，形成<strong>闭包</strong>，所以在外部无法访问到<code>base64_photo</code>，想在外部引用<code>base64_photo</code>就要另辟蹊径</p>
+</blockquote>
+<p>在这里提供一个方法，可以将<code>base64_photo</code>定义为全局变量，这样就能在函数外部访问到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局变量与局部变量</span></span><br><span class="line"><span class="keyword">let</span> base64_photo = <span class="string">&#x27;&#x27;</span>; <span class="comment">// 全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> base64_photo = <span class="string">&#x27;&#x27;</span>; <span class="comment">// 局部变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The End😀</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2018/08/09/sshkeys/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2018-12-12 17:19:52
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/JavaScript/" title="JavaScript">
+                        <b>#</b> JavaScript
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2019/02/03/2018-summary/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="">
-        <div class="time-m-d">11-07</div>
-        <div class="title">
-          <a href="/2021/11/07/GIT%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-            <span></span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="Hello World222">
-        <div class="time-m-d">11-07</div>
-        <div class="title">
-          <a href="/2021/11/07/hello-world2/">
-            <span>Hello World222</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-text">上传图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87"><span class="toc-text">获取图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E6%88%90Base64"><span class="toc-text">转换成Base64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">注意事项</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Canvas学习与实践 - 基于Canvas的像素画板实现">
-        <div class="time-m-d">09-27</div>
-        <div class="title">
-          <a href="/2020/09/27/pixel-drawing-board/">
-            <span>Canvas学习与实践 - 基于Canvas的像素画板实现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="CSS像素图标设计（持续更新⏳）">
-        <div class="time-m-d">06-03</div>
-        <div class="title">
-          <a href="/2020/06/03/pixel-icon-design/">
-            <span>CSS像素图标设计（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="简易CSS动画设计（持续更新⏳）">
-        <div class="time-m-d">05-26</div>
-        <div class="title">
-          <a href="/2020/05/26/css-animation-design/">
-            <span>简易CSS动画设计（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SCSS语法学习与实践 - 将现有项目CSS整合成SCSS">
-        <div class="time-m-d">05-16</div>
-        <div class="title">
-          <a href="/2020/05/16/change-syntax-of-css-to-scss/">
-            <span>SCSS语法学习与实践 - 将现有项目CSS整合成SCSS</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Something about HTML（持续更新⏳）">
-        <div class="time-m-d">05-15</div>
-        <div class="title">
-          <a href="/2020/05/15/something-about-html/">
-            <span>Something about HTML（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Something about CSS（持续更新⏳）">
-        <div class="time-m-d">05-01</div>
-        <div class="title">
-          <a href="/2020/05/01/something-about-css/">
-            <span>Something about CSS（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="极简主义主题 - Oranges">
-        <div class="time-m-d">04-18</div>
-        <div class="title">
-          <a href="/2020/04/18/minimalist-theme-oranges/">
-            <span>极简主义主题 - Oranges</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="疫情期间的居家生活">
-        <div class="time-m-d">03-25</div>
-        <div class="title">
-          <a href="/2020/03/25/home-life-during-COVID-19/">
-            <span>疫情期间的居家生活</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2019年度总结">
-        <div class="time-m-d">01-01</div>
-        <div class="title">
-          <a href="/2020/01/01/2019-summary/">
-            <span>2019年度总结</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2019</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="技术分享之机器学习">
-        <div class="time-m-d">10-25</div>
-        <div class="title">
-          <a href="/2019/10/25/machine-learning/">
-            <span>技术分享之机器学习</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Vue transition 折叠类动画自动获取隐藏层高度以及手风琴效果实现">
-        <div class="time-m-d">07-13</div>
-        <div class="title">
-          <a href="/2019/07/13/vue-transition/">
-            <span>Vue transition 折叠类动画自动获取隐藏层高度以及手风琴效果实现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2018年终总结与规划">
-        <div class="time-m-d">02-03</div>
-        <div class="title">
-          <a href="/2019/02/03/2018-summary/">
-            <span>2018年终总结与规划</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2018</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="js实现图片转换为Base64">
-        <div class="time-m-d">12-12</div>
-        <div class="title">
-          <a href="/2018/12/12/phototobase64/">
-            <span>js实现图片转换为Base64</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="ssh key密钥生成与使用">
-        <div class="time-m-d">08-09</div>
-        <div class="title">
-          <a href="/2018/08/09/sshkeys/">
-            <span>ssh key密钥生成与使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="三河古镇一日游">
-        <div class="time-m-d">07-06</div>
-        <div class="title">
-          <a href="/2018/07/06/Sanhe/">
-            <span>三河古镇一日游</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Windows10子系统Ubuntu体验">
-        <div class="time-m-d">06-21</div>
-        <div class="title">
-          <a href="/2018/06/21/linux/">
-            <span>Windows10子系统Ubuntu体验</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="hexo一键部署到云服务器">
-        <div class="time-m-d">05-01</div>
-        <div class="title">
-          <a href="/2018/05/01/hexo-deploy/">
-            <span>hexo一键部署到云服务器</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="如何搭建一个简易的个人网站">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/2018/04/10/hexo-build/">
-            <span>如何搭建一个简易的个人网站</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">03-28</div>
-        <div class="title">
-          <a href="/2018/03/28/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">
@@ -618,6 +521,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AC%E6%8D%A2%E4%B8%BABase64 + '&url=' + http%3A%2F%2Fexample.com%2F2018%2F12%2F12%2Fphototobase64%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2018/12/12/phototobase64/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>

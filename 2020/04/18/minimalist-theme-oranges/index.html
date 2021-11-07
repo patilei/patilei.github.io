@@ -11,7 +11,7 @@
   
   <title>
     
-      归档 
+      极简主义主题 - Oranges 
       
       
       |
@@ -105,233 +105,159 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">极简主义主题 - Oranges</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2020-04-18 11:08:18
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Hexo/" title="Hexo">
+                    <b>#</b> Hexo
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="初衷"><a href="#初衷" class="headerlink" title="初衷"></a>初衷</h3><p>Hexo主题库看了不少，也用了不少，但一直没有找到符合自己风格的主题。所以在阅读了Hexo官方文档，参考其他主题开发者的思路后，搞出了一个仅仅符合自己审美的主题 - <code>Oranges</code>。 虽然简单，但我喜欢。</p>
+<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><h4 id="001-主页"><a href="#001-主页" class="headerlink" title="001-主页"></a>001-主页</h4><p><img src="https://qiniu.zcheng.site/minimalist-theme-oranges-theme-oranges-index.png" alt="001-主页"></p>
+<hr>
+<h4 id="002-文章页"><a href="#002-文章页" class="headerlink" title="002-文章页"></a>002-文章页</h4><p><img src="https://qiniu.zcheng.site/minimalist-theme-oranges-theme-oranges-post.png" alt="002-文章页"></p>
+<h3 id="优化与更新"><a href="#优化与更新" class="headerlink" title="优化与更新"></a>优化与更新</h3><p>主题目前功能并不多，后续根据需求考虑更新迭代。</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 自定义导航，可灵活配置自己想要的导航✔</li>
+<li><input checked="" disabled="" type="checkbox"> toc文章目录展示✔<ul>
+<li><input checked="" disabled="" type="checkbox"> 优化超出屏幕部分滚动显示，并自动跟随文章内容滚动<code>[2020.5.24]</code>✔</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> Fancybox，支持文章内图片友好浏览✔</li>
+<li><input checked="" disabled="" type="checkbox"> 回到页面顶部<code>[2020.5.4]</code>✔</li>
+<li><input checked="" disabled="" type="checkbox"> RSS Feed</li>
+<li><input checked="" disabled="" type="checkbox"> 文章页末增加next post &amp; Previous Post<code>[2020.5.10]</code>✔</li>
+<li><input checked="" disabled="" type="checkbox"> 文章标题锚点<code>[2020.5.3]</code>✔</li>
+<li><input checked="" disabled="" type="checkbox"> 评论系统</li>
+<li><input disabled="" type="checkbox"> 分享功能</li>
+<li><input disabled="" type="checkbox"> 文章字数统计</li>
+<li><input disabled="" type="checkbox"> 页面访问量统计</li>
+<li><input checked="" disabled="" type="checkbox"> Google分析<code>[2020.5.9]</code>✔</li>
+<li><input disabled="" type="checkbox"> 文章加密</li>
+<li><input disabled="" type="checkbox"> 文章置顶</li>
+<li><input disabled="" type="checkbox"> 全文搜索功能</li>
+<li><input disabled="" type="checkbox"> 主题配色切换</li>
+<li><input checked="" disabled="" type="checkbox"> 页面平滑滚动<code>[2020.5.4]</code>✔</li>
+<li><input checked="" disabled="" type="checkbox"> 目录激活&amp;跟随<code>[2020.5.4]</code>✔</li>
+<li><input disabled="" type="checkbox"> 主题样式可自定义配置</li>
+</ul>
+<h3 id="使用与配置"><a href="#使用与配置" class="headerlink" title="使用与配置"></a>使用与配置</h3><p>主题具有一定的灵活性，可根据自己的需求进行合理配置，具体配置文件藏在<code>themes/oranges/_config.yml</code><br>参考 <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">hexo-theme-oranges</a> README</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://zchengsite.github.io/username.github.io/">demo</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">项目地址</a></li>
+</ul>
+<p>有任何疑问或建议请提交issue，也欢迎Fork提交PR。</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/03/25/home-life-during-COVID-19/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2020-04-18 11:08:18
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Hexo/" title="Hexo">
+                        <b>#</b> Hexo
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/05/01/something-about-css/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="">
-        <div class="time-m-d">11-07</div>
-        <div class="title">
-          <a href="/2021/11/07/GIT%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-            <span></span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="Hello World222">
-        <div class="time-m-d">11-07</div>
-        <div class="title">
-          <a href="/2021/11/07/hello-world2/">
-            <span>Hello World222</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E8%A1%B7"><span class="toc-text">初衷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%AA%E5%9B%BE"><span class="toc-text">截图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#001-%E4%B8%BB%E9%A1%B5"><span class="toc-text">001-主页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#002-%E6%96%87%E7%AB%A0%E9%A1%B5"><span class="toc-text">002-文章页</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="toc-text">优化与更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">使用与配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-text">最后</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Canvas学习与实践 - 基于Canvas的像素画板实现">
-        <div class="time-m-d">09-27</div>
-        <div class="title">
-          <a href="/2020/09/27/pixel-drawing-board/">
-            <span>Canvas学习与实践 - 基于Canvas的像素画板实现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="CSS像素图标设计（持续更新⏳）">
-        <div class="time-m-d">06-03</div>
-        <div class="title">
-          <a href="/2020/06/03/pixel-icon-design/">
-            <span>CSS像素图标设计（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="简易CSS动画设计（持续更新⏳）">
-        <div class="time-m-d">05-26</div>
-        <div class="title">
-          <a href="/2020/05/26/css-animation-design/">
-            <span>简易CSS动画设计（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SCSS语法学习与实践 - 将现有项目CSS整合成SCSS">
-        <div class="time-m-d">05-16</div>
-        <div class="title">
-          <a href="/2020/05/16/change-syntax-of-css-to-scss/">
-            <span>SCSS语法学习与实践 - 将现有项目CSS整合成SCSS</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Something about HTML（持续更新⏳）">
-        <div class="time-m-d">05-15</div>
-        <div class="title">
-          <a href="/2020/05/15/something-about-html/">
-            <span>Something about HTML（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Something about CSS（持续更新⏳）">
-        <div class="time-m-d">05-01</div>
-        <div class="title">
-          <a href="/2020/05/01/something-about-css/">
-            <span>Something about CSS（持续更新⏳）</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="极简主义主题 - Oranges">
-        <div class="time-m-d">04-18</div>
-        <div class="title">
-          <a href="/2020/04/18/minimalist-theme-oranges/">
-            <span>极简主义主题 - Oranges</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="疫情期间的居家生活">
-        <div class="time-m-d">03-25</div>
-        <div class="title">
-          <a href="/2020/03/25/home-life-during-COVID-19/">
-            <span>疫情期间的居家生活</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2019年度总结">
-        <div class="time-m-d">01-01</div>
-        <div class="title">
-          <a href="/2020/01/01/2019-summary/">
-            <span>2019年度总结</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2019</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="技术分享之机器学习">
-        <div class="time-m-d">10-25</div>
-        <div class="title">
-          <a href="/2019/10/25/machine-learning/">
-            <span>技术分享之机器学习</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Vue transition 折叠类动画自动获取隐藏层高度以及手风琴效果实现">
-        <div class="time-m-d">07-13</div>
-        <div class="title">
-          <a href="/2019/07/13/vue-transition/">
-            <span>Vue transition 折叠类动画自动获取隐藏层高度以及手风琴效果实现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2018年终总结与规划">
-        <div class="time-m-d">02-03</div>
-        <div class="title">
-          <a href="/2019/02/03/2018-summary/">
-            <span>2018年终总结与规划</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2018</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="js实现图片转换为Base64">
-        <div class="time-m-d">12-12</div>
-        <div class="title">
-          <a href="/2018/12/12/phototobase64/">
-            <span>js实现图片转换为Base64</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="ssh key密钥生成与使用">
-        <div class="time-m-d">08-09</div>
-        <div class="title">
-          <a href="/2018/08/09/sshkeys/">
-            <span>ssh key密钥生成与使用</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="三河古镇一日游">
-        <div class="time-m-d">07-06</div>
-        <div class="title">
-          <a href="/2018/07/06/Sanhe/">
-            <span>三河古镇一日游</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Windows10子系统Ubuntu体验">
-        <div class="time-m-d">06-21</div>
-        <div class="title">
-          <a href="/2018/06/21/linux/">
-            <span>Windows10子系统Ubuntu体验</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="hexo一键部署到云服务器">
-        <div class="time-m-d">05-01</div>
-        <div class="title">
-          <a href="/2018/05/01/hexo-deploy/">
-            <span>hexo一键部署到云服务器</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="如何搭建一个简易的个人网站">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/2018/04/10/hexo-build/">
-            <span>如何搭建一个简易的个人网站</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">03-28</div>
-        <div class="title">
-          <a href="/2018/03/28/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">
@@ -618,6 +544,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E6%9E%81%E7%AE%80%E4%B8%BB%E4%B9%89%E4%B8%BB%E9%A2%98%20-%20Oranges + '&url=' + http%3A%2F%2Fexample.com%2F2020%2F04%2F18%2Fminimalist-theme-oranges%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2020/04/18/minimalist-theme-oranges/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
