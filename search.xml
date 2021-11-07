@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>GIT命令</title>
+      <title>GIT常用命令</title>
       <link href="/2021/11/07/GIT%E5%91%BD%E4%BB%A4/"/>
       <url>/2021/11/07/GIT%E5%91%BD%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>分布式版本控制：个人与团队协作开发，可回退版本</p><p>GIT命令行操作</p><p>本地库操作</p><p>1.本地库初始化，命令：git add</p><p>隐藏的文件查看命令：ls -lA</p><p>查看工作区和暂存区的状态：git states</p><p>将工作区的 新建或修改 的文件提交到暂存区：git add File文件名</p><p>将暂存区中的文件删除：git rm –cached 文件名</p><p>将暂存区的文件提交到本地库：git commit 文件名  || git commit  -m  “第一次提交” 文件名</p><p>总结:第一次提交文件需要先执行git add 文件名进行文件的追踪，如果更改文件内容后进行提交，add操作可执行或也可不执行直接进行commit操作</p><p>远程库操作</p><p>git remote  -v 查看远程仓库地址是否有别名</p><p>git remote add  仓库地址或者别名 </p><p>git push origin master 推送到分支</p><p>ssh免密</p><p>ssh -keygen -t rsa -C <a href="mailto:&#x31;&#x31;&#48;&#x33;&#48;&#x31;&#x31;&#x30;&#x33;&#x33;&#x40;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;">&#x31;&#x31;&#48;&#x33;&#48;&#x31;&#x31;&#x30;&#x33;&#x33;&#x40;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;</a> 生成公钥私钥</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="1-本地库操作"><a href="#1-本地库操作" class="headerlink" title="1.本地库操作"></a>1.本地库操作</h2><p>本地库初始化，命令：git add</p><p>隐藏的文件查看命令：ls -lA</p><p>查看工作区和暂存区的状态：git states</p><p>将工作区的 新建或修改 的文件提交到暂存区：git add File文件名</p><p>将暂存区中的文件删除：git rm –cached 文件名</p><p>将暂存区的文件提交到本地库：git commit 文件名  || git commit  -m  “第一次提交” 文件名</p><p>总结:第一次提交文件需要先执行git add 文件名进行文件的追踪，如果更改文件内容后进行提交，add操作可执</p><p>行或也可不执行直接进行commit操作</p><h2 id="2-远程库操作"><a href="#2-远程库操作" class="headerlink" title="2.远程库操作"></a>2.远程库操作</h2><p>git remote  -v 查看远程仓库地址是否有别名</p><p>git remote add  仓库地址或者别名 </p><p>git push origin master 推送到分支</p><h2 id="3-ssh免密公私钥生成"><a href="#3-ssh免密公私钥生成" class="headerlink" title="3.ssh免密公私钥生成"></a>3.ssh免密公私钥生成</h2><p>ssh -keygen -t rsa -C <a href="mailto:&#49;&#49;&#48;&#x33;&#48;&#49;&#x31;&#x30;&#51;&#51;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;">&#49;&#49;&#48;&#x33;&#48;&#49;&#x31;&#x30;&#51;&#51;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;</a> 生成公钥私钥</p>]]></content>
       
       
       <categories>
