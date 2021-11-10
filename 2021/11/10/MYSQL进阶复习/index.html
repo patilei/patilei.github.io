@@ -137,7 +137,7 @@ MathJax = {
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间"></i>
-          2021-11-19 23:56:56
+          2021-11-10 23:56:56
         </span>
         
               <span class="post-tags">
@@ -168,15 +168,36 @@ MathJax = {
 <p>TCL：事物控制，事物提交 commit，事物回滚：rollback；</p>
 <p>DCL：数据控制语言，授权grant、撤销权限revoke</p>
 <h4 id="6-简单查询"><a href="#6-简单查询" class="headerlink" title="6.简单查询"></a>6.简单查询</h4><p>查询一个字段：select 和from是关键字</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select  字段名 from 表名;   </span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  字段名 <span class="keyword">from</span> 表名;   </span><br></pre></td></tr></table></figure>
 
 <p>查询多个字段： 查询字段之间使用,来隔开</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select   cloumn1，cloumn2 from 表名;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>   cloumn1，cloumn2 <span class="keyword">from</span> 表名;  </span><br></pre></td></tr></table></figure>
 
 <p>查询所有字段：第2种方式可读性较差，效率低，不可取，*在运行的时候也会转换为字段。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.select 字段名1,字段名2 from 表名</span><br><span class="line">2.select * from 表名</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span><span class="keyword">select</span> 字段名<span class="number">1</span>,字段名<span class="number">2</span> <span class="keyword">from</span> 表名</span><br><span class="line"><span class="number">2.</span><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表名</span><br></pre></td></tr></table></figure>
 
+<h4 id="7-起别名"><a href="#7-起别名" class="headerlink" title="7.起别名"></a>7.起别名</h4><p>使用as关键字</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段名 <span class="keyword">as</span> 别名 <span class="keyword">from</span> 表名</span><br></pre></td></tr></table></figure>
 
+<p>不适用as关键字</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段名 别名 <span class="keyword">from</span> 表名</span><br></pre></td></tr></table></figure>
+
+<p>别名关键字中间有空格怎么操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.select 字段名 &#x27;别 名&#x27; from 表名</span><br><span class="line">2.select 字段名 &quot;别 名&quot; from 表名</span><br><span class="line">注：在数据库当中，字符串统一使用单引号括起来，单引号是标准，双引号在oracle中不可以使用，在mysql中可以使用。</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-条件查询"><a href="#8-条件查询" class="headerlink" title="8.条件查询"></a>8.条件查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">语法格式：<span class="keyword">select</span> </span><br><span class="line">              字段名<span class="number">1</span>，字段名<span class="number">2.</span>...</span><br><span class="line">              <span class="keyword">from</span></span><br><span class="line">              表名</span><br><span class="line">              <span class="keyword">where</span></span><br><span class="line">              条件;</span><br></pre></td></tr></table></figure>
+
+<p>= 等于</p>
+<blockquote>
+<p>大于 </p>
+</blockquote>
+<p>&lt;小于</p>
+<p>&lt;=小于等于 </p>
+<p>=大于等于 </p>
+<p>!=不等于</p>
+<p>and并且</p>
+<p>between … and … 必须遵循左小右大，闭区间</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  字段名<span class="number">1</span>，字段名<span class="number">2</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> 字段名<span class="number">1</span> <span class="operator">=</span>xxx；</span><br><span class="line"><span class="keyword">select</span>  字段名<span class="number">1</span>，字段名<span class="number">2</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> 字段名<span class="number">1</span> <span class="operator">&gt;</span>xxx <span class="keyword">and</span> 字段名<span class="number">1</span><span class="operator">&lt;</span>xxxx；</span><br><span class="line"><span class="keyword">select</span>  字段名<span class="number">1</span>，字段名<span class="number">2</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> 字段名<span class="number">1</span> <span class="keyword">between</span> xxx <span class="keyword">and</span> xxx;</span><br></pre></td></tr></table></figure>
 
 
       </div>
@@ -193,7 +214,7 @@ MathJax = {
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间"></i>
-              2021-11-19 23:56:56
+              2021-11-10 23:56:56
             </span>
             
                   <span class="post-tags">
@@ -221,7 +242,7 @@ MathJax = {
   <div class="post-catalog hidden" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-%E4%BB%80%E4%B9%88%E6%98%AFSQL%EF%BC%9F%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">1.什么是数据库？什么是数据管理系统?什么是SQL？它们之间的关系是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BC%80%E5%90%AFMysql%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%85%B3%E9%97%AD%E6%9C%8D%E5%8A%A1"><span class="toc-text">2.命令行开启Mysql服务和关闭服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">3.mysql常用命令行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%A1%A8%E5%8D%95%E5%85%83%E6%98%AF%E8%A1%A8%EF%BC%9Atable%EF%BC%8C%E4%BB%BB%E4%BD%95%E4%B8%80%E5%BC%A0%E8%A1%A8%E9%83%BD%E6%9C%89%E8%A1%8C%E5%92%8C%E5%88%97%EF%BC%8C%E8%A1%8C%EF%BC%88row%EF%BC%89%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95%E3%80%81%E5%88%97%EF%BC%88column%EF%BC%89%E7%A7%B0%E4%B8%BA%E5%AD%97%E6%AE%B5"><span class="toc-text">4.数据库中最基本的表单元是表：table，任何一张表都有行和列，行（row）数据记录、列（column）称为字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-SQL%E8%AF%AD%E5%8F%A5%E5%88%86%E7%B1%BB"><span class="toc-text">5.SQL语句分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2"><span class="toc-text">6.简单查询</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-%E4%BB%80%E4%B9%88%E6%98%AFSQL%EF%BC%9F%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">1.什么是数据库？什么是数据管理系统?什么是SQL？它们之间的关系是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BC%80%E5%90%AFMysql%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%85%B3%E9%97%AD%E6%9C%8D%E5%8A%A1"><span class="toc-text">2.命令行开启Mysql服务和关闭服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">3.mysql常用命令行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%A1%A8%E5%8D%95%E5%85%83%E6%98%AF%E8%A1%A8%EF%BC%9Atable%EF%BC%8C%E4%BB%BB%E4%BD%95%E4%B8%80%E5%BC%A0%E8%A1%A8%E9%83%BD%E6%9C%89%E8%A1%8C%E5%92%8C%E5%88%97%EF%BC%8C%E8%A1%8C%EF%BC%88row%EF%BC%89%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95%E3%80%81%E5%88%97%EF%BC%88column%EF%BC%89%E7%A7%B0%E4%B8%BA%E5%AD%97%E6%AE%B5"><span class="toc-text">4.数据库中最基本的表单元是表：table，任何一张表都有行和列，行（row）数据记录、列（column）称为字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-SQL%E8%AF%AD%E5%8F%A5%E5%88%86%E7%B1%BB"><span class="toc-text">5.SQL语句分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2"><span class="toc-text">6.简单查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E8%B5%B7%E5%88%AB%E5%90%8D"><span class="toc-text">7.起别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-text">8.条件查询</span></a></li></ol>
     </div>
   </div>
 
@@ -530,12 +551,12 @@ MathJax = {
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + MYSQL%E8%BF%9B%E9%98%B6%E5%A4%8D%E4%B9%A0 + '&url=' + http%3A%2F%2Fexample.com%2F2021%2F11%2F19%2FMYSQL%25E8%25BF%259B%25E9%2598%25B6%25E5%25A4%258D%25E4%25B9%25A0%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + MYSQL%E8%BF%9B%E9%98%B6%E5%A4%8D%E4%B9%A0 + '&url=' + http%3A%2F%2Fexample.com%2F2021%2F11%2F10%2FMYSQL%25E8%25BF%259B%25E9%2598%25B6%25E5%25A4%258D%25E4%25B9%25A0%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2021/11/19/MYSQL%E8%BF%9B%E9%98%B6%E5%A4%8D%E4%B9%A0/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2021/11/10/MYSQL%E8%BF%9B%E9%98%B6%E5%A4%8D%E4%B9%A0/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
