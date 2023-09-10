@@ -11,7 +11,7 @@
   
   <title>
     
-      Spring面试题 
+      archive_a: 2023/9 
       
       
       |
@@ -70,7 +70,7 @@
         <img src="/images/avatar.png" alt="">
       
     </a>
-    <div class="nickname"><a href="/">阿磊的个人博客</a></div>
+    <div class="nickname"><a href="/">记录点滴足迹 留下美好时光</a></div>
   </div>
   <div class="navbar">
     <ul>
@@ -105,131 +105,136 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
 
-<!-- LaTex Display -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  }
-};
-</script>
+<!-- last: 按年份把文章分组，当前遍历到的年份 -->
+<!-- now: 当前遍历到的文章的发布年份 -->
 
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">Spring面试题</div>
-      <div class="post-attach">
-        <span class="post-pubtime">
-          <i class="iconfont icon-updatetime" title="更新时间"></i>
-          2022-02-23 08:21:56
-        </span>
-        
-              <span class="post-tags">
-                <i class="iconfont icon-tags" title="标签"></i>
-                
-                <span class="span--tag">
-                  <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
-                    <b>#</b> Java面试总结
-                  </a>
-                </span>
-                
-              </span>
-          
-      </div>
-      <div class="markdown-body">
-        <h1 id="Spring系列面试题"><a href="#Spring系列面试题" class="headerlink" title="Spring系列面试题"></a>Spring系列面试题</h1><h2 id="Spring框架是什么？"><a href="#Spring框架是什么？" class="headerlink" title="Spring框架是什么？"></a>Spring框架是什么？</h2><p>Spirng是轻量级的控制反转IOC和AOP的容器框架。</p>
-<p>1.入侵性低（可以直接使用spring框架来写业务代码，依赖框架度低）。</p>
-<p>2.控制反转IOC来达到松耦合的一个目的。</p>
-<p>3.AOP面向切面：在运行时，动态地将代码切入类的指定方法，指定位置上的编程思想。</p>
-<p>4.管理了对象bean的生命周期</p>
-<p>5.可以将很多其他的框架整合到一块</p>
-<h2 id="AOP的理解？"><a href="#AOP的理解？" class="headerlink" title="AOP的理解？"></a>AOP的理解？</h2><p>将我们的业务比如日志、事物、封装成一个切面，注入到具体的业务逻辑中，主要是对某个对象或某些对象功能进行增强，比如对象的功能增强。</p>
-<h2 id="IOC的理解？"><a href="#IOC的理解？" class="headerlink" title="IOC的理解？"></a>IOC的理解？</h2><p>ioc容器概念</p>
-<p>实际上就是一个map集合，里边存着各种对象，在xml配置的bean节点、以及@repository、@Service、@Controller、@Component注解，在项目启动的时候会读取配置文件的bean节点，根据全限定类名读取到map里，还有扫描到类上有注解的也会通过反射来创建对象放到map集合中。</p>
-<p>这个时候就有各种对象了，如果我们的业务代码需要用到对象时，使用DI注入（Atuowired、resource）等注解，xml里bean节点的ref属性根据id注入，也会扫描这注解根据类型、id注入（id就是对象名）。</p>
-<p>控制反转：全部对象的控制权上交IOC容器</p>
-<p>依赖注入：获得依赖的对象被反转了，自身管理对象变为了IOC容器自动注入，依赖注入是实现IOC的方法，在IOC容器运行期间，动态地将某种依赖关系注入到对象中。</p>
-<h2 id="BeanFactory和ApplicationContext有什么区别？"><a href="#BeanFactory和ApplicationContext有什么区别？" class="headerlink" title="BeanFactory和ApplicationContext有什么区别？"></a>BeanFactory和ApplicationContext有什么区别？</h2><h2 id="简述Spring-bean的生命周期？"><a href="#简述Spring-bean的生命周期？" class="headerlink" title="简述Spring bean的生命周期？"></a>简述Spring bean的生命周期？</h2><h2 id="Spring-支持Bean的作用域？"><a href="#Spring-支持Bean的作用域？" class="headerlink" title="Spring 支持Bean的作用域？"></a>Spring 支持Bean的作用域？</h2><h2 id="Spring-框架的单例Bean是安全的吗？"><a href="#Spring-框架的单例Bean是安全的吗？" class="headerlink" title="Spring 框架的单例Bean是安全的吗？"></a>Spring 框架的单例Bean是安全的吗？</h2><h2 id="Spring框架运用了哪些设计模式及应用场景？"><a href="#Spring框架运用了哪些设计模式及应用场景？" class="headerlink" title="Spring框架运用了哪些设计模式及应用场景？"></a>Spring框架运用了哪些设计模式及应用场景？</h2><h2 id="Spring事物的实现方式原理以及隔离级别？"><a href="#Spring事物的实现方式原理以及隔离级别？" class="headerlink" title="Spring事物的实现方式原理以及隔离级别？"></a>Spring事物的实现方式原理以及隔离级别？</h2><h2 id="Spring事物的传播机制？"><a href="#Spring事物的传播机制？" class="headerlink" title="Spring事物的传播机制？"></a>Spring事物的传播机制？</h2><h2 id="Spring事物什么时候会失效？"><a href="#Spring事物什么时候会失效？" class="headerlink" title="Spring事物什么时候会失效？"></a>Spring事物什么时候会失效？</h2><h2 id="什么时候Bean是自动装配的有哪些方式？"><a href="#什么时候Bean是自动装配的有哪些方式？" class="headerlink" title="什么时候Bean是自动装配的有哪些方式？"></a>什么时候Bean是自动装配的有哪些方式？</h2>
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
-            
-              <a href="/2022/02/21/Java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>上一页</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-            <span class="post-pubtime">
-              <i class="iconfont icon-updatetime" title="更新时间"></i>
-              2022-02-23 08:21:56
-            </span>
-            
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags" title="标签"></i>
-                    
-                    <span class="span--tag">
-                      <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
-                        <b>#</b> Java面试总结
-                      </a>
-                    </span>
-                    
-                  </span>
-              
-          </div>
-          <div class="post-foot-prev">
-            
-          </div>
+<div class="container archives">
+  <div class="post-list">
+    
+        <!-- 后续文章的发布年份呈现 -->
+        <div class="content-title">
+          <h2>
+            <span>2023</span>
+          </h2>
         </div>
       
-    </div>
+      <div class="post-item" title="MYSQL基础语法">
+        <div class="time-m-d">09-10</div>
+        <div class="title">
+          <a href="/2023/09/10/MYSQL%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+            <span>MYSQL基础语法</span>
+          </a>
+        </div>
+      </div>
     
-  <div id="btn-catalog" class="btn-catalog">
-    <i class="iconfont icon-catalog"></i>
-  </div>
-  <div class="post-catalog hidden" id="catalog">
-    <div class="title">目录</div>
-    <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-text">Spring系列面试题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E6%A1%86%E6%9E%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">Spring框架是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F"><span class="toc-text">AOP的理解？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F"><span class="toc-text">IOC的理解？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BeanFactory%E5%92%8CApplicationContext%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">BeanFactory和ApplicationContext有什么区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E8%BF%B0Spring-bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%9F"><span class="toc-text">简述Spring bean的生命周期？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-%E6%94%AF%E6%8C%81Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%9F"><span class="toc-text">Spring 支持Bean的作用域？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8D%95%E4%BE%8BBean%E6%98%AF%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97%EF%BC%9F"><span class="toc-text">Spring 框架的单例Bean是安全的吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E6%A1%86%E6%9E%B6%E8%BF%90%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="toc-text">Spring框架运用了哪些设计模式及应用场景？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%BA%8B%E7%89%A9%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%EF%BC%9F"><span class="toc-text">Spring事物的实现方式原理以及隔离级别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%BA%8B%E7%89%A9%E7%9A%84%E4%BC%A0%E6%92%AD%E6%9C%BA%E5%88%B6%EF%BC%9F"><span class="toc-text">Spring事物的传播机制？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%BA%8B%E7%89%A9%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%A4%B1%E6%95%88%EF%BC%9F"><span class="toc-text">Spring事物什么时候会失效？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99Bean%E6%98%AF%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E7%9A%84%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="toc-text">什么时候Bean是自动装配的有哪些方式？</span></a></li></ol></li></ol>
-    </div>
-  </div>
-
-  
-<script src="/js/catalog.js"></script>
-
-
-
-
+      <div class="post-item" title="MYSQL高级进阶">
+        <div class="time-m-d">09-10</div>
+        <div class="title">
+          <a href="/2023/09/10/MYSQL%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/">
+            <span>MYSQL高级进阶</span>
+          </a>
+        </div>
+      </div>
     
-      <div class="comments-container">
-        
-
-
-
-
-
+      <div class="post-item" title="多线程JUC">
+        <div class="time-m-d">09-10</div>
+        <div class="title">
+          <a href="/2023/09/10/%E5%A4%9A%E7%BA%BF%E7%A8%8BJUC/">
+            <span>多线程JUC</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="SpringBoot">
+        <div class="time-m-d">09-10</div>
+        <div class="title">
+          <a href="/2023/09/10/SpringBoot/">
+            <span>SpringBoot</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="Spring">
+        <div class="time-m-d">09-10</div>
+        <div class="title">
+          <a href="/2023/09/10/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/">
+            <span>Spring</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="JVM">
+        <div class="time-m-d">09-10</div>
+        <div class="title">
+          <a href="/2023/09/10/JVM/">
+            <span>JVM</span>
+          </a>
+        </div>
+      </div>
+    
+        <!-- 后续文章的发布年份呈现 -->
+        <div class="content-title">
+          <h2>
+            <span>2022</span>
+          </h2>
+        </div>
+      
+      <div class="post-item" title="集合">
+        <div class="time-m-d">02-21</div>
+        <div class="title">
+          <a href="/2022/02/21/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/">
+            <span>集合</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="Redis">
+        <div class="time-m-d">02-21</div>
+        <div class="title">
+          <a href="/2022/02/21/Redis%E9%9D%A2%E8%AF%95%E9%A2%98/">
+            <span>Redis</span>
+          </a>
+        </div>
+      </div>
+    
+        <!-- 后续文章的发布年份呈现 -->
+        <div class="content-title">
+          <h2>
+            <span>2021</span>
+          </h2>
+        </div>
+      
+      <div class="post-item" title="selenium+phantomjs实现网页截屏">
+        <div class="time-m-d">11-08</div>
+        <div class="title">
+          <a href="/2021/11/08/selenium+phantomjs%E5%AE%9E%E7%8E%B0%E7%BD%91%E9%A1%B5%E6%88%AA%E5%B1%8F/">
+            <span>selenium+phantomjs实现网页截屏</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="逆向小程序">
+        <div class="time-m-d">11-08</div>
+        <div class="title">
+          <a href="/2021/11/08/%E9%80%86%E5%90%91%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+            <span>逆向小程序</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="GIT常用命令">
+        <div class="time-m-d">11-07</div>
+        <div class="title">
+          <a href="/2021/11/07/GIT%E5%91%BD%E4%BB%A4/">
+            <span>GIT常用命令</span>
+          </a>
+        </div>
       </div>
     
   </div>
-
+</div>
 
         <div class="footer">
   <div class="social">
@@ -276,7 +281,7 @@ MathJax = {
   
     <div class="footer-more">
       
-        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2023</a>
         
     </div>
   
@@ -510,24 +515,6 @@ MathJax = {
 
 
         
-  
-    <div class="share-icon tools-bar-item">
-      <a href="javascript: void(0)" id="share-icon">
-        <i class="iconfont iconshare"></i>
-      </a>
-      <div class="share-content hidden">
-        
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Spring%E9%9D%A2%E8%AF%95%E9%A2%98 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F02%2F23%2FSpring%25E9%259D%25A2%25E8%25AF%2595%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
-            <i class="iconfont icon-twitter"></i>
-          </a>
-        
-        
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/02/23/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_blank" title="Facebook">
-            <i class="iconfont icon-facebooksquare"></i>
-          </a>
-        
-      </div>
-    </div>
   
   
 <script src="/js/shares.js"></script>

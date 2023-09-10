@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      SpringBoot 
+      
+      
+      |
+    
+     Welcome!MyBlog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/color-scheme.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/comments.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">记录点滴足迹 留下美好时光</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">朋友</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">SpringBoot</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2023-09-10 22:03:56
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
+                    <b>#</b> Java面试总结
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="为什么导入dependency时不需要指定版本？"><a href="#为什么导入dependency时不需要指定版本？" class="headerlink" title="为什么导入dependency时不需要指定版本？"></a>为什么导入dependency时不需要指定版本？</h1><p>spring-boot-starter-parent通过继承spring-boot-dependencies从而实现了SpringBoot的版本依赖管理所以我们的SpringBoot工程继承spring-boot-lstarter-parent后已经具备版本锁定等配置了,这也就是在 Spring Boot 项目中部分依赖不需要写版本号的原因</p>
+<h1 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h1><p>根据我们添加的jar包依赖，会自动将一些配置类的bean注册到ioc容器中，需要的地方使用@autowried或者@resource等注解来使用。</p>
+<h1 id="Spring是如何进行自动配置的？"><a href="#Spring是如何进行自动配置的？" class="headerlink" title="Spring是如何进行自动配置的？"></a>Spring是如何进行自动配置的？</h1><p>启动一个被@springbootApplication注解标注的主配置类的main方法来进行自动配置。</p>
+<h1 id="注解的原理解释？"><a href="#注解的原理解释？" class="headerlink" title="注解的原理解释？"></a>注解的原理解释？</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication：组合注解</span><br></pre></td></tr></table></figure>
+
+<p>Springboot中有很多以Enable开头的注解，作用就是借助@Import来收集并且注册特定场景相关的bean，并且加载到ioc容器，@EnableAutoConfiguration就是这样做的</p>
+<h2 id="EnableAutoConfiguration-分析"><a href="#EnableAutoConfiguration-分析" class="headerlink" title="@EnableAutoConfiguration 分析"></a>@EnableAutoConfiguration 分析</h2><p>主要组合的注解有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(AutoConfigurationImportSelector.class)</span><br></pre></td></tr></table></figure>
+
+<h2 id="AutoConfigurationPackage"><a href="#AutoConfigurationPackage" class="headerlink" title="@AutoConfigurationPackage"></a>@AutoConfigurationPackage</h2><p>里边包含了@Import(AutoConfigurationPackages.Registrar.class)</p>
+<p>AutoConfigurationPackages.Registrar这个类就干一个事，注册一个Bean，这个Bean 就是</p>
+<p>org.springframework.boot.autoconfigure.AutoConfigurationPackages.BasePackages，</p>
+<p>它有一个参数，这个参数是使用了@AutoConfigurationPackage这个注解的类所在的包路径，保存自动配置类以供之后的使用</p>
+<h2 id="Import-AutoConfigurationImportSelector-class"><a href="#Import-AutoConfigurationImportSelector-class" class="headerlink" title="@Import(AutoConfigurationImportSelector.class)"></a>@Import(AutoConfigurationImportSelector.class)</h2><p>1.先走这个process方法，读取一些符合规则的自动配置类</p>
+<p>2.调用selectImports</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public Iterable&lt;Group.Entry&gt; getImports() &#123;</span><br><span class="line">   for (DeferredImportSelectorHolder deferredImport : this.deferredImports) &#123;</span><br><span class="line">      this.group.process(deferredImport.getConfigurationClass().getMetadata(),</span><br><span class="line">            deferredImport.getImportSelector());</span><br><span class="line">   &#125;</span><br><span class="line">   return this.group.selectImports();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结springboot自动配置的原理</p>
+<p>1.从spring.factories配置文件中加载自动配置类；</p>
+<p>2.加载的自动配置类中排除掉@EnableAutoConfiguration注解的exclude属性指定的自动配置类:</p>
+<p>3.然后再用AutoConfigurationImportFilter接口去过滤自动配置类是否符合其标注注解(若有标注的话)</p>
+<p>@Conditionalonclass,@ConditionalonBean 和@ConditionalonwebApplication的条件，若都符合的话则返回匹配结果</p>
+<p>4,然后触发AutoConfigurationImportEvent事件,告诉ConditionEvaluationReport条件评估报告器对象来分别记录符合条件和exclude的自动配置l类。</p>
+<h1 id="谈谈你对springboot的理解？它有哪些优点？"><a href="#谈谈你对springboot的理解？它有哪些优点？" class="headerlink" title="谈谈你对springboot的理解？它有哪些优点？"></a>谈谈你对springboot的理解？它有哪些优点？</h1><h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><p>springboot是spring框架开发的一个脚手架，用来简化spring应用的初始搭建过程。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>可以使用springboot提供的内置starter进行自动配置，对于主流的框架无需配置，开箱即用</p>
+<p>采用javaconfig的方式零xml的方式进行开发</p>
+<p>内置web容器无需依赖外部web服务器，直接运行jar可以启动应用</p>
+<p>管理了第三方依赖的版本，减少出现版本冲突的问题</p>
+<p>自带了监控，内存，线程池，http请求统计的功能</p>
+<h1 id="spring和springboot的关系的和区别？"><a href="#spring和springboot的关系的和区别？" class="headerlink" title="spring和springboot的关系的和区别？"></a>spring和springboot的关系的和区别？</h1><p>都是生态产品</p>
+<p>spring Framework是一个容器框架</p>
+<p>boot是一个可以快速构建spring的脚手架</p>
+<h1 id="springboot的核心注解？"><a href="#springboot的核心注解？" class="headerlink" title="springboot的核心注解？"></a>springboot的核心注解？</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@SpringBootApplication：组合注解，标识为当前项目是一个springboot工程</span><br><span class="line">@SpringBootConfiguration：实际上就是一个@Configuration，表示启动类也是一个配置类</span><br><span class="line">@EnableAutoConfiguration ：向spring容器中导入一个selector，用来加载classpath下的springFactories中所定义的自动配置类，自动加载为Bean</span><br><span class="line">@Conditional：满足设定的条件，将bean注册到spring容器中</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="springboot的自动配置原理？"><a href="#springboot的自动配置原理？" class="headerlink" title="springboot的自动配置原理？"></a>springboot的自动配置原理？</h1><p>在Spring Boot项目中的引导类上有一个注解@SpringBootApplication，这个 注解是对三个注解进行了封装，分别是：</p>
+<p> @SpringBootConfiguration</p>
+<p> @EnableAutoConfiguration</p>
+<p> @ComponentScan</p>
+<p>其中 @EnableAutoConfiguration 是实现自动化配置的核心注解。 该注解通过 @Import 注解导入对应的配置选择器。关键的是内部就是读取了 该项目和该项目引用的Jar包的的classpath路径下METAINF/spring.factories文件中的所配置的类的全类名。</p>
+<p>在这些配置类中所定义的Bean会根据条件注解所指定的条件来决定是否需要 将其导入到Spring容器中。 一般条件判断会有像 @ConditionalOnClass 这样的注解，判断是否有对应的 class文件，如果有则加载该类，把这个配置类的所有的Bean放入spring容器 中使用。</p>
+<h1 id="为什么springboot的jar可以直接运行？"><a href="#为什么springboot的jar可以直接运行？" class="headerlink" title="为什么springboot的jar可以直接运行？"></a>为什么springboot的jar可以直接运行？</h1><p>1.SpringBoot提供了一个插件spring-boot-maven-plugin用于把程序打包成一个可执行的jar包。</p>
+<p>2.Spring Boot应用打包之后,生成一个Fat jar(jar包中包含jar),包含了应用依赖的jar包和Spring Boot loader相关的类。</p>
+<p>3.java-jar会去找jar中的manifest文件，在那里面找到真正的启动类（Main-Class）</p>
+<p>4.Fat jar的启动Main函数是JarLauncher，它负责创建一个LaunchedURLClassLoader来加载boot-lib下面的jar，并以一个新线程启动应用的启动类的Main函数（找到manifest中的Start-Class）。</p>
+<h1 id="springboot的启动原理"><a href="#springboot的启动原理" class="headerlink" title="springboot的启动原理"></a>springboot的启动原理</h1><p>1.运行main方法，初始化Application。 从spring.factories读取listener（ApplicationContextInitializer）</p>
+<p>2.运行run方法</p>
+<p>3.读取环境变量，配置信息</p>
+<p>4.创建springApplication上下文：ServletWebServerApplicationContext</p>
+<p>5.初始化上下文：读取启动类-&gt;BeanDefinition</p>
+<p>6.调用refresh加载ioc容器</p>
+<p>invokeBeanFactoryPostProcessor加载所有的自动配置类–解析Import加载所有的自动配置类</p>
+<p>onRefresh 创建(内置)servlet容器</p>
+<p>7.在这个过程中springboot会调用很多监听器对外进行扩展</p>
+<h1 id="springboot内置tomcat原理？"><a href="#springboot内置tomcat原理？" class="headerlink" title="springboot内置tomcat原理？"></a>springboot内置tomcat原理？</h1><p>当依赖Spring-boot-starter-web依赖时会在SpringBoot中添加: ServletWebServerFactoryAutoConfiguration </p>
+<p>servlet容器自动配置类该自动配置类通过@lmport导入了可用(通过@ConditionalOnClass判断决定使用哪一个)的一个Web容器工厂(默认Tomcat)</p>
+<p>在内嵌Tomcat类中配置了一个TomcatServletWebServerFactory的Bean (Web容器工厂）</p>
+<p>它会在SpringBoot启动时加载ioc容器(refresh) OnRefersh创建内嵌的Tomcat并启动</p>
+<h1 id="springboot外部tomcat原理？"><a href="#springboot外部tomcat原理？" class="headerlink" title="springboot外部tomcat原理？"></a>springboot外部tomcat原理？</h1><p>1.打包方式设置为war</p>
+<p>2.将内置的tomcat依赖排除</p>
+<p>3.继承SpringServletInitializer重写configure，将启动类传进去</p>
+<h1 id="读取配置文件原理和加载顺序优先级？"><a href="#读取配置文件原理和加载顺序优先级？" class="headerlink" title="读取配置文件原理和加载顺序优先级？"></a>读取配置文件原理和加载顺序优先级？</h1><p>通过时间监听的方式读取配置文件：ConfigFileApplicationListener</p>
+<p> 优先级为主，高优先级的配置覆盖低优先级的配置，配置会形成互补配置</p>
+<h1 id="springboot的默认日志实现框架是什么？"><a href="#springboot的默认日志实现框架是什么？" class="headerlink" title="springboot的默认日志实现框架是什么？"></a>springboot的默认日志实现框架是什么？</h1><p>默认是logback</p>
+<p>怎么切换成别的？排除logback，添加slf4j的对应的桥接器和适配器就可以了</p>
+<h1 id="springboot可以同时处理多少请求？"><a href="#springboot可以同时处理多少请求？" class="headerlink" title="springboot可以同时处理多少请求？"></a>springboot可以同时处理多少请求？</h1><p><em>server.tomcat.threads.min-spare</em>：最小线程数。</p>
+<p>*server.tomcat.threads.*max：最大线程数。</p>
+<p>*server.tomcat.*max-connections：最大连接数。</p>
+<p>*server.tomcat.*accept-count：最大等待数。</p>
+<p>当连接请求过来时，首先会交给min-spare线程处理，当min-spare线程处理不过来时，会创建临时线程来处理，创建的临时线程数量+min-spare线程数量不能超过max线程数量，即最大线程数量不能超过max个线程。</p>
+<p>max-connections是最大的连接数，当连接数超过max-connections的时候，连接会进入等待队列；accept-count即为等待队列的长度。当等待队列也满了后，连接请求将会进行等待（等待时间大小为客户端设置的连接时间大小），如果在等待连接时间内，有连接处理完成，那么连接请求就能进入等待队列里等待执行；如果在等待连接的时间内，没有连接处理完成，则连接请求将会出现connected timeout异常。</p>
+<p>所以，springboot内置的tomcat同时能处理的请求数量等于：max-connections数量+accept-count数量。max-connection默认值为8192，accept-count默认值为100，所以默认能同时处理的请求个数为8292。</p>
+<h1 id="springboot解决跨域的5种方式"><a href="#springboot解决跨域的5种方式" class="headerlink" title="springboot解决跨域的5种方式"></a>springboot解决跨域的5种方式</h1><p>1.jsonp</p>
+<p>2.跨域请求CORS，ie10以下的浏览器不兼容</p>
+<p>3.nginx：反向代理</p>
+<h1 id="springboot读取配置的6种方式？"><a href="#springboot读取配置的6种方式？" class="headerlink" title="springboot读取配置的6种方式？"></a>springboot读取配置的6种方式？</h1><p>1.属性加@Value(“${get.name}”)可以直接获取到配置文件的值，必须是一个bean</p>
+<p>2.ConfigurationProperties(prefix=”get”) 指定配置文件的前缀，适用于批量绑定 </p>
+<p>3.注入Environment属性，实现接口EnvironmentAware重写set方法来设置environment属性</p>
+<p>4.外部自定义的使用@PropertySource注解绑定外部的配置类</p>
+<p>5.通过注入Bean为PropertySourcesPlaceholderConfigurer的对象来注入yml文件</p>
+<h1 id="springboot如何优化启动速度？"><a href="#springboot如何优化启动速度？" class="headerlink" title="springboot如何优化启动速度？"></a>springboot如何优化启动速度？</h1><p>1.延迟初始化Bean，将bean设置为懒加载</p>
+<p>2.创建扫描索引</p>
+<p>3.升级SpringBoot新版本</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/09/10/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2023-09-10 22:03:56
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
+                        <b>#</b> Java面试总结
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/09/10/%E5%A4%9A%E7%BA%BF%E7%A8%8BJUC/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AF%BC%E5%85%A5dependency%E6%97%B6%E4%B8%8D%E9%9C%80%E8%A6%81%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么导入dependency时不需要指定版本？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">自动配置原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E7%9A%84%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">Spring是如何进行自动配置的？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%8E%9F%E7%90%86%E8%A7%A3%E9%87%8A%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">注解的原理解释？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EnableAutoConfiguration-%E5%88%86%E6%9E%90"><span class="toc-number">4.1.</span> <span class="toc-text">@EnableAutoConfiguration 分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AutoConfigurationPackage"><span class="toc-number">4.2.</span> <span class="toc-text">@AutoConfigurationPackage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Import-AutoConfigurationImportSelector-class"><span class="toc-number">4.3.</span> <span class="toc-text">@Import(AutoConfigurationImportSelector.class)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9springboot%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F%E5%AE%83%E6%9C%89%E5%93%AA%E4%BA%9B%E4%BC%98%E7%82%B9%EF%BC%9F"><span class="toc-number">5.</span> <span class="toc-text">谈谈你对springboot的理解？它有哪些优点？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%A7%A3"><span class="toc-number">5.1.</span> <span class="toc-text">理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">5.2.</span> <span class="toc-text">优点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spring%E5%92%8Cspringboot%E7%9A%84%E5%85%B3%E7%B3%BB%E7%9A%84%E5%92%8C%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">spring和springboot的关系的和区别？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E7%9A%84%E6%A0%B8%E5%BF%83%E6%B3%A8%E8%A7%A3%EF%BC%9F"><span class="toc-number">7.</span> <span class="toc-text">springboot的核心注解？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E7%9A%84%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">springboot的自动配置原理？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88springboot%E7%9A%84jar%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%BF%90%E8%A1%8C%EF%BC%9F"><span class="toc-number">9.</span> <span class="toc-text">为什么springboot的jar可以直接运行？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E7%9A%84%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86"><span class="toc-number">10.</span> <span class="toc-text">springboot的启动原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E5%86%85%E7%BD%AEtomcat%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="toc-number">11.</span> <span class="toc-text">springboot内置tomcat原理？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E5%A4%96%E9%83%A8tomcat%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="toc-number">12.</span> <span class="toc-text">springboot外部tomcat原理？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%BC%98%E5%85%88%E7%BA%A7%EF%BC%9F"><span class="toc-number">13.</span> <span class="toc-text">读取配置文件原理和加载顺序优先级？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E7%9A%84%E9%BB%98%E8%AE%A4%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">14.</span> <span class="toc-text">springboot的默认日志实现框架是什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E5%8F%AF%E4%BB%A5%E5%90%8C%E6%97%B6%E5%A4%84%E7%90%86%E5%A4%9A%E5%B0%91%E8%AF%B7%E6%B1%82%EF%BC%9F"><span class="toc-number">15.</span> <span class="toc-text">springboot可以同时处理多少请求？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E7%9A%845%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">16.</span> <span class="toc-text">springboot解决跨域的5种方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%846%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="toc-number">17.</span> <span class="toc-text">springboot读取配置的6种方式？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6%EF%BC%9F"><span class="toc-number">18.</span> <span class="toc-text">springboot如何优化启动速度？</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" href="">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2023</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + SpringBoot + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F09%2F10%2FSpringBoot%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/09/10/SpringBoot/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

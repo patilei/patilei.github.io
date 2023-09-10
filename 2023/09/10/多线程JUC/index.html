@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      多线程JUC 
+      
+      
+      |
+    
+     Welcome!MyBlog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/color-scheme.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/comments.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">记录点滴足迹 留下美好时光</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">朋友</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">多线程JUC</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2023-09-10 23:03:56
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
+                    <b>#</b> Java面试总结
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h1><p>程序是由指令和数据组成，指令要执行需要加载到CPU，数据要读写要加载到内存中。</p>
+<p>进程就是用来加载指令、管理内存、管理IO的，当一个程序被运行，从磁盘加载这个程序的代码，这个时候就开启了 一个进程，进程可以看做一个程序。</p>
+<p>例如记事本、浏览器可以同时开启多个实例进程，网易云、360卫士只能开启一个实例进程。</p>
+<p>一个进程中可以分为一到多个线程，每一个线程就是一个指令流，将指令流里的一条条指令交给CPU去执行</p>
+<p>在Java中，线程是最小调度单位，进程作为资源分配的最小单位。</p>
+<h1 id="并发Concurrent与并行parallel"><a href="#并发Concurrent与并行parallel" class="headerlink" title="并发Concurrent与并行parallel"></a>并发Concurrent与并行parallel</h1><p>并发Concurrent是同一时间应对多件事情的能力</p>
+<p>单核cpu下将cpu的时间片交给不同的线程使用，由于线程间的时间片非常短切换很快，一般这种线程轮流使用CPU的做法成为并发</p>
+<p>并行parallel是同一时间动手执行一件事情</p>
+<p>多核cpu下，每个核都可以调度运行线程，这个时候线程就是并行的</p>
+<p>结论:1.在单核cpu下并不能提升运行效率，而是为了能够在不同的任务之间切换，不同线程轮流使用cpu，不至于一个线程总占用cpu，别的线程没法干活。</p>
+<p>​         2.多核cpu可以并行跑多个线程，但是否提升运行效率还需要具体看情况，有些任务经过精心设计，将任务拆分，并行执行，可以提高程序的效率。</p>
+<p>​        3.IO操作不占用CPU，只是我们一般拷贝文件使用的是阻塞IO，这时相当于线程虽然不要cpu，但是需要一直等待IO结束，没能充分利用线程，后面才有的非        阻塞IO和异步IO优化。</p>
+<h1 id="同步-异步调用"><a href="#同步-异步调用" class="headerlink" title="同步/异步调用"></a>同步/异步调用</h1><p>如果一个方法需要等待结果返回，才能继续运行就是同步。</p>
+<p>如果一个方法无需等待结果返回，就可以继续运行就是异步。</p>
+<h1 id="创建多线程方法"><a href="#创建多线程方法" class="headerlink" title="创建多线程方法"></a>创建多线程方法</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j(topic = &quot;c.Thread01&quot;)</span><br><span class="line">public class Thread01 &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Thread thread = new Thread()&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                log.debug(&quot;running&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        thread.start();</span><br><span class="line">        log.debug(&quot;running&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">二、实现Runnable接口重写run方法</span><br><span class="line">@Slf4j(topic = &quot;c.Thread02&quot;)</span><br><span class="line">public class Thread02 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Runnable runnable = new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                log.debug(&quot;running&quot;);</span><br><span class="line">                System.out.println(&quot;running&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line">        Thread thread = new Thread(runnable,&quot;t2&quot;);</span><br><span class="line">        thread.start();</span><br><span class="line">        log.debug(&quot;running&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">  lambda简化</span><br><span class="line">  Runnable runnable =() -&gt; &#123;</span><br><span class="line">           log.debug(&quot;running&quot;);</span><br><span class="line">  &#125;;</span><br><span class="line">  Thread thread = new Thread(runnable,&quot;t2&quot;);</span><br><span class="line">  thread.start();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">三、实现Callable接口重写call方法，利用FuturnTask实现类的get获取返回值</span><br><span class="line">@Slf4j(topic = &quot;c.Thread03&quot;)</span><br><span class="line">public class Thread01&#123;</span><br><span class="line">    public static void main(String[] args) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">        FutureTask&lt;Integer&gt; futureTask = new FutureTask&lt;&gt;(new Callable&lt;Integer&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Integer call() throws Exception &#123;</span><br><span class="line">                log.debug(&quot;running&quot;);</span><br><span class="line">                Thread.sleep(3000);</span><br><span class="line">                return 200;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        Thread thread = new Thread(futureTask,&quot;t3&quot;);</span><br><span class="line">        thread.start();</span><br><span class="line">        log.debug(&quot;&#123;&#125;&quot;,futureTask.get());//阻塞一直等待结果的返回</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一、继承Thread类重写run方法</p>
+<p>二、实现Runnable接口重写run方法</p>
+<p>三、实现Callable接口重写call方法，利用FuturnTask实现类的get获取返回值</p>
+<h1 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h1><p>非守护线程（main主方法）执行完毕，守护线程也会结束</p>
+<h1 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h1><p>start：进入到就绪状态。</p>
+<p>sleep：线程的睡眠时间，可以让线程让出时间片。</p>
+<p>yield：让出当前线程的时间片。</p>
+<p>join：同步等待当前线程执行完后，之后才会让出当前线程时间片，让其他线程去执行。</p>
+<p>interrup：线程的打断会抛出异常</p>
+<p>必须获得此对象的锁，才能调取以下的方法</p>
+<p>obj.wiat()让进入object监视器的线程到wait等待，无限制等待，可以加参数限制等待的时间</p>
+<p>obj.notify 在object上正在waitSet等待的线程中挑一个唤醒</p>
+<p>obj.notifyAll 让object上正在waitSet等待的线程全部唤醒</p>
+<p>sleep在加锁 睡眠的同时不会释放锁，wait在等待的时候会释放对象锁</p>
+<h1 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h1><p>操作系统层面：5种状态</p>
+<p>初始状态：创建线程，并且调用start方法</p>
+<p>可运行状态：（就绪状态）：在执行了start方法之后，线程进入就绪状态，等待cpu的调度执行</p>
+<p>运行状态：是指当前线程在运行中，获得cpu时间片（将运行状态转至就绪状态，会导致线程的上下文切换）</p>
+<p>阻塞状态：如果调用了BIO阻塞API读取文件，这时候不会用到cpu，会导致上下文切换，进入阻塞状态</p>
+<p>​                    等BIO执行操作完毕后，线程进入就绪状态，等待cpu的调度</p>
+<p>终止状态：表示线程已经执行完毕，生命周期结束，不会再转换为其他状态</p>
+<p>基于JAVA api层面有6种状态</p>
+<p>NEW:创建线程对象，还没有调用start方法</p>
+<p>Runnable ：一直在运行中</p>
+<p>TERNINATED：线程运行结束，整个线程执行完了</p>
+<p>TIME_WAITING:有时间的等待 sleep</p>
+<p>WAITING：join一直在等待状态</p>
+<p>BLOCKED：想获得锁被阻塞了</p>
+<h1 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h1><p>临界区：在多线程访问的时候发生了竞争条件（在读写的时候，当第一个线程读到还没有写出去就发生了时间片的切换，另外一个线程进行了读写之后，第一个线程继续进行写，这里就产生的线程安全问题）</p>
+<p>如何避免临界区的竞态条件发生？</p>
+<p>阻塞：synchronized、Lock</p>
+<p>非阻塞:原子变量</p>
+<h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p>synchronized俗称对象锁，使用互斥的方式让同一时刻只能有一个线程持有对象锁，其他获取这个对象锁就会阻塞，这样可以保证安全的执行临界区的代码，不用担心上下文的切换。</p>
+<p>如果当前线程临界区上了对象锁，在代码还没有执行完的时候，发生了时间片的切换，后边的线程会进行一个阻塞等待，并且一直等待当前线程执行完才能进行释放锁。</p>
+<p>synchronized是用对象锁保证了临界区代码的原子性，要想保护共享资源就要保证锁的是同一个对象</p>
+<p>考虑代码块的原子性，线程共享的对象都要进行上锁</p>
+<p>synchronized（this）{} 等价于 public void synchronized method（）{}都是锁住了当前对象</p>
+<p>如果将synchronized加到静态方法上就是锁住了当前类</p>
+<h2 id="synchronized轻量级锁001"><a href="#synchronized轻量级锁001" class="headerlink" title="synchronized轻量级锁001"></a>synchronized轻量级锁001</h2><p>（1）加了synchronized之后，方法创建在栈帧，每个栈帧中包含一个锁记录（Lcok Record）对象，内部存储锁定Mark Word</p>
+<p>（2）让锁记录的Object Reference指向锁对象，并尝试使用cas替换对象Object的Mark Word，将Mark Word的值存入锁记录</p>
+<p>（3）如果cas替换成功，对象头中存储锁记录地址和状态00</p>
+<p>​        如果替换失败有两种情况：（1）如果是其他线程持有了当前对象的轻量级锁，说明锁有竞争，进入锁膨胀时期。</p>
+<p>​                                                        （2）如果当前线程自己又执行上锁，就会添加一条Lock Record作为重入的计数，这就是重入锁，当前方法执行完之后计数减一。</p>
+<h2 id="synchronized锁膨胀"><a href="#synchronized锁膨胀" class="headerlink" title="synchronized锁膨胀"></a>synchronized锁膨胀</h2><p>如果在尝试加轻量级锁的过程中，CAS操作无法成功，表明其他线程给对象加了轻量级锁，需要进行锁膨胀，将轻量级锁变为重量级。</p>
+<p>Thread-0已经对该对象加了轻量级锁，Thread1又要进行加轻量级锁时就会失败，就会为当前的对象申请Monitor锁，让对象指向重量级锁地址，然后Thread-1（自旋竞争锁）进入M onitor的EntryList Blocked阻塞队列。</p>
+<p>当Thread-0退出同步块解锁时，使用cas将Mark Word的值恢复给对象头会失败。这时会进入重量级解锁流程，即Monitor地址找到Monitor对象，设置Owner为null，唤醒EntryList中的Blocked线程。</p>
+<h2 id="synchronized偏向锁101"><a href="#synchronized偏向锁101" class="headerlink" title="synchronized偏向锁101"></a>synchronized偏向锁101</h2><p>用ThreadID替换Markword</p>
+<p>轻量级锁在没有竞争的情况下（当前线程），每次重入锁都需要执行CAS操作。</p>
+<p>在java 6中引入了偏向锁来进一步优化：第一次使用CAS将线程ID设置到对象的Mark Word头，之后发现这个线程ID是自己的就表示没有竞争，不用重新CAS。</p>
+<p>对象创建的时候，如果开启了偏向锁（默认开启）：偏向锁时默认延迟的，不会在程序启动的时候立即生效 ，如果想避免延迟，需要加jvm参数。markword值为最后三位101，这时thread、epoch、age都为0</p>
+<p>如果没有开启偏向锁，创建对象后，markword值为最后三位001，这时hashcode、age都为0，第一次用到hashcode才会赋值（调用hashcode会禁用这个对象的偏向锁，转换为轻量级锁）</p>
+<p>撤销偏向锁的两种方式</p>
+<p>（1）调用对象的hashcode，但是偏向锁的对象markword中存储的是线程id，调用hashcode会导致偏向锁撤销</p>
+<p>轻量级锁会在锁记录中记录hashCode，重量级锁会在Monitor中记录hashCode</p>
+<p>（2）其他线程使用偏向锁对象时，偏向锁就会升级为轻量级锁。</p>
+<p>一个线程加锁是偏向锁，多个线程加锁是轻量级锁，然后是锁膨胀为重量级锁</p>
+<p>批量重偏向</p>
+<p>如果对象虽然被多个线程访问，但没有竞争，这时偏向了线程T1的对象仍有机会重新偏向T2，重偏向会重置对象的ThreadID，当偏向锁阈值超过20次后，会给这些对象加锁时重新偏向至加锁线程</p>
+<p>批量撤销</p>
+<p>当撤销偏向锁阈值超过40次所有的对象都会变为不可偏向的，新建对象也是不可偏向的。</p>
+<p>锁消除优化</p>
+<h1 id="线程安全分析"><a href="#线程安全分析" class="headerlink" title="线程安全分析"></a>线程安全分析</h1><p>成员变量、静态变量：没有被共享则线程安全，如果被共享根据状态来分辨是不是线程安全，如果是读操作，则线程安全。如果是读写操作，这段代码是临界区，需要考虑线程安全</p>
+<p>局部变量是线程安全的，但是局部变量引用的对象则有可能不是线程安全，如果没有逃离方法的作用方法，是线程安全，如果该对象逃离方法的作用范围，需要考虑线程安全</p>
+<p>多线程组合调用安全的方法也会发生线程安全问题</p>
+<h1 id="Monitor（锁）概念"><a href="#Monitor（锁）概念" class="headerlink" title="Monitor（锁）概念"></a>Monitor（锁）概念</h1><p>Monitor又叫监视器或管程 </p>
+<p>刚开始Monitor中Owner（moinitoe所有者）为null</p>
+<p>当线程1执行synchronized（obj）就会将Monitor的所有者Owner设置为线程1，Monitor中只能有一个Owner</p>
+<p>在线程1上锁的过程中，如果线程2、3也来执行synchronized（obj），就会进入EntryList Blocked阻塞</p>
+<p>线程1执行完同步代码块的内容，然后唤醒EntryList中等待线程来竞争锁，竞争是非公平的（随机竞争不会按照顺序）</p>
+<p>WaitSet：调用了wait方法，执行notify就会唤醒waitSet队列的线程，</p>
+<p>原理：Ower发展条件不满足的时候，调用wait方法，即可进入WaitSet变为Waiting状态</p>
+<p>​            Waiting线程会在Owner线程调用notify或notifyAlll时唤醒，但唤醒不意味立刻获得锁，仍需要进入EntryList重新竞争</p>
+<p>synchronized必须进入同一个对象的monitor才会有上述的效果，不加synchronized的对象不会关联监视器</p>
+<h1 id="Park和Unpark"><a href="#Park和Unpark" class="headerlink" title="Park和Unpark"></a>Park和Unpark</h1><p>LockSupport.park() 暂停当前线程</p>
+<p>LockSupport.unpark（）暂停线程对象</p>
+<h2 id="死锁和活锁"><a href="#死锁和活锁" class="headerlink" title="死锁和活锁"></a>死锁和活锁</h2><p>死锁：两个线程互相持有对方想要的锁，导致程序无法执行</p>
+<p>活锁：两个线程改变了对方的结束条件，两个线程在不断的运行结束不了<br>饥饿：表示有的线程永远拿不到锁</p>
+<h1 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h1><p>与synchronized的区别</p>
+<p>可中断（可以破坏锁，中断）调用lockInterruptibly方法加锁</p>
+<p>可以设置超时时间（规定时间内获取不到锁就放弃执行）</p>
+<p>可以设置为公平锁（防止线程饥饿的情况，先进先出）</p>
+<p>支持多个变量（多个wiatSet队列等待）</p>
+<p>都可以重入</p>
+<p>lockInterruptibly方法加锁：lock锁如果没有竞争就会获取到lock对象锁，如果有竞争就进入阻塞队列，可以被其他线程打断</p>
+<p>tryLock ：尝试获取锁，返回布尔值，返回true获得到了锁，返回false没有获得到锁，防止无限制的等待，防止死锁</p>
+<p>Condition条件变量</p>
+<p>await（）前需要获得到锁，</p>
+<p>执行之后会释放锁，进入conditionObject等待（调用newCondition进入wiatSet队列）</p>
+<p>await的线程被唤醒（打断或超时）重新竞争lock锁</p>
+<p>竞争lock锁成功后，从await后继续执行</p>
+<h2 id="ReentrantLock实现原理"><a href="#ReentrantLock实现原理" class="headerlink" title="ReentrantLock实现原理"></a>ReentrantLock实现原理</h2><p>公平锁和非公平锁</p>
+<h3 id="加锁成功"><a href="#加锁成功" class="headerlink" title="加锁成功"></a>加锁成功</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">final void lock() &#123;</span><br><span class="line">    if (compareAndSetState(0, 1)) //加锁成功</span><br><span class="line">        setExclusiveOwnerThread(Thread.currentThread());</span><br><span class="line">    else</span><br><span class="line">        acquire(1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1.没有竞争的情况下，将state改为1，并且将ExclusiveOwnerThread设置为当前线程。</p>
+<p>2.如果出现的竞争，走acquire(1)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public final void acquire(int arg) &#123;</span><br><span class="line">    if (!tryAcquire(arg) &amp;&amp;</span><br><span class="line">        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))</span><br><span class="line">        selfInterrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CAS尝试将state由0改为1，仍然失败</p>
+<p>进入tryAcquire逻辑，state已经是1，结果仍然失败</p>
+<p>接下来进入addWaiter逻辑构造Node队列，其中第一个是Dummy哑元或哨兵，用来占位不关联线程。</p>
+<p>然后进入acquireQueued</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">final boolean acquireQueued(final Node node, int arg) &#123;</span><br><span class="line">    boolean failed = true;</span><br><span class="line">    try &#123;</span><br><span class="line">        boolean interrupted = false;</span><br><span class="line">        for (;;) &#123;</span><br><span class="line">            final Node p = node.predecessor();</span><br><span class="line">            if (p == head &amp;&amp; tryAcquire(arg)) &#123;</span><br><span class="line">                setHead(node);</span><br><span class="line">                p.next = null; // help GC</span><br><span class="line">                failed = false;</span><br><span class="line">                return interrupted;</span><br><span class="line">            &#125;</span><br><span class="line">            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">                parkAndCheckInterrupt())</span><br><span class="line">                interrupted = true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        if (failed)</span><br><span class="line">            cancelAcquire(node);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>acquireQueued会在一个死循环中不断尝试获得锁，失败进入park阻塞</p>
+<p>如果自己是紧邻着head（排第二位），那么再次tryAcquire尝试获取锁，当state为1，失败</p>
+<p>进入shouldParkAfterFailedAcquire逻辑，将前驱node，即head的wiatStatus改为-1，再次返回false</p>
+<p>shouldParkAfterFailedAcquire执行完毕回到acquireQueued，再次tryAcquire尝试获得锁，当然这时state仍为1失败</p>
+<p>当再次进入shouldParkAfterFailedAcquire时，这时因为前驱node的waitStatus已经是-1，这次返回true</p>
+<p>进入parkAndCheckInterrupt，Thread-Park</p>
+<p>锁竞争成功之后 释放锁</p>
+<p>设置setExclusiveOwnerThread为null，state=0</p>
+<p>当队列不为null时，并且head的wiatStutes=-1，进入unparkSuccessor流程</p>
+<p>找到队列中离head最近的一个Node，unpark恢复运行，回到线程acquireQueued运行流程</p>
+<p>如果不巧被其他线程又占用，获取锁失败，还得重新进入park阻塞</p>
+<h2 id="锁重入原理"><a href="#锁重入原理" class="headerlink" title="锁重入原理"></a>锁重入原理</h2><p>如果已经获得了锁，线程还是当前线程， 表示发生了锁重入，只有state减为0，才能释放成功</p>
+<h2 id="可打断原理"><a href="#可打断原理" class="headerlink" title="可打断原理"></a>可打断原理</h2><p>需要获得锁才能够打断，如果被打断则设置intrrupted为true</p>
+<h2 id="公平锁原理"><a href="#公平锁原理" class="headerlink" title="公平锁原理"></a>公平锁原理</h2><p>非公平锁：尝试cas获得，不去检查AQS队列就去检查锁了</p>
+<p>公平锁:检查AQS队列中是否有前置区节点，没有才去竞争</p>
+<h1 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h1><p>JMM即Java Memory Moder，定义了主存（所有线程都共享的数据），工作内存（每个线程私有的）</p>
+<p>JMM主要体现在以下几个方面：原子性-保证指令不会受到线程上下文切换的影响</p>
+<p>​                                                    可见性-保证指令不会受cpu缓存的影响</p>
+<p>​                                                    有序性-保证指令不会受cpu指令并行优化的影响</p>
+<p> 一个线程对主存的修改，对于另外一个线程不可见，读取的永远是旧值，就出现了问题。（因为另外一个线程频繁从主内存中读取run的值，JIT编译器会将值缓存在自己工作内存中高速缓存区，减少对主存的访问，提高效率）</p>
+<p>解决：使用volatile关键字，就不会从缓存中取值了。volatile不能保证原子性，只能保证可见性</p>
+<p>可见性：保证在多个线程之间，一个线程对volatile变量修改对另一个线程可见，不能保证原子性，用在一个写线程，多个读线程。</p>
+<p>有序性：如何保证有序性？写屏障会确保指令重排时，不会将屏障之前的代码排在写屏障之后，读屏障会保证在指令重排序时，不会将读屏障之后的代码排在读屏障之前。</p>
+<p>如何保证可见性？</p>
+<p>写屏障（sfence)保证在该屏障之前，对共享变量的改动，都同步到主存中。</p>
+<p>读屏障（Ifence）保证在该屏障之后，对共享变量的读取，加载的是主存中的最新数据</p>
+<p>原理？</p>
+<h1 id="无锁并发CAS与volatile"><a href="#无锁并发CAS与volatile" class="headerlink" title="无锁并发CAS与volatile"></a>无锁并发CAS与volatile</h1><h2 id="CAS的工作-方式"><a href="#CAS的工作-方式" class="headerlink" title="CAS的工作 方式"></a>CAS的工作 方式</h2><p>CAS比较并交换，底层使用lock cmpxchg指令，在单核和多核都可以保证比较交换的原子性 </p>
+<p>如果共享变量的值和当前读到的值相同，则成功，如果值不同则失败</p>
+<p> CAS需要借助volati0le才能读取到共享变量的最新值，实现比较并交换</p>
+<p>CAS是乐观锁（无锁），不怕别人来修改共享变量，改了就去失败重试，无阻塞并发，无锁并发，如果竞争激烈，重试比较频繁发生，效率也会受到影响</p>
+<p>syn是悲观锁，防止其他线程来修改变量，别的线程来了要阻塞</p>
+<p>适用于线程数少、多核cpu的场景下</p>
+<p>原子整数</p>
+<p>AtomicInteger</p>
+<p>-get：获取最新值</p>
+<p>-compareAndSet：比较并设置</p>
+<p>原子引用：AtomicReference</p>
+<p>ABA问题：共享变量在更改之后，又被改了回去，仅仅只能判断出值是否与最初的值是否相同，不能感知到被改又改回去的情况。</p>
+<p>AtomicStampedReference加版本号的实现</p>
+<p>AtomicMarkableReference关心这个变量有没有被更改过</p>
+<p>原子数组：AtomicIntegerArray 数组整形，AtomicLongArray 数组长整形，AtomicReferenceArray 数组引用</p>
+<p>原子更新：AtomicRefenceFieldUpdater </p>
+<p>原子累加器</p>
+<p>LongAddr：在有竞争的情况下，设置多个累加单元，这样他们在累加的时候在操作不同的cell变量，减少了cas重试次数，从而提高了性能</p>
+<p>transient volatile Cell[] cells; 累加单元组，懒惰初始化</p>
+<p>transient volatile long base 累加单元域</p>
+<p>transient volatile int cellsBusy 创建或扩容时，置为1，表示加锁</p>
+<p>@Contended 防止缓存行伪共享</p>
+<h1 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h1><p>提供非常底层的，操作内存，线程的方法，Unsafe 只能通过反射获得，不能直接调用。</p>
+<h1 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h1><p>定义：重用之前创建好的对象</p>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><p>构造方法ThreadPoolExecutor</p>
+<p>corePoolSize 核心线程数（最多保留的线程数）</p>
+<p>maximumPoolSize 最大线程数（救急线程，阻塞队列放不下会使用）</p>
+<p>keepAliveTime 生存时间 -针对救急线程</p>
+<p>unit 时间单位 -针对救急线程</p>
+<p>workQueue 阻塞队列</p>
+<p>threadFactory 线程工厂 -可以为线程创建时起名字</p>
+<p>handler 拒绝策略（救急线程如果满了，会使用拒绝策略）</p>
+<p>救急线程配合有界队列来使用</p>
+<p>jdk提供了4种拒绝策略</p>
+<p>1.AbortPolicy 让调用者抛出RejectedException异常，这是默认策略</p>
+<p>2.CallerRunsPolicy 让调用者运行任务</p>
+<p>3.DiscardPolicy 放弃本次任务</p>
+<p>4.DiscardOldestPolicy 放弃队列中最早的任务，本任务取而代之</p>
+<p>Exectors工具类</p>
+<p>newFixedThreadPool：核心线程数=急救线程数，没有救急线程被创建，因此没有超时时间，队列无界，可以放任意数量的任务</p>
+<p>newCacheThreadPool：核心线程是0，最大线程是Interger.MAX_VALUE，救急线程的空闲生存时间是60s，意味着全部都是救急线程60s后可以回收，救急线程可以无限创建</p>
+<p>队列采用了SynchronousQueue：他没有容量，没有线程来取，是放不进去的。</p>
+<p>newSingleThreadExector:单线程线程池，线程数固定为1，任务书多于1时，会放入无界队列，任务执行完毕，这唯一的线程也不会释放</p>
+<h1 id="任务调度线程池"><a href="#任务调度线程池" class="headerlink" title="任务调度线程池"></a>任务调度线程池</h1><p>Timer类：串行执行，同一时间只能有一个任务在执行，前一个任务的延迟或异常都会影响之后的任务</p>
+<p>ScheduledExectorService</p>
+<h1 id="AQS原理"><a href="#AQS原理" class="headerlink" title="AQS原理"></a>AQS原理</h1><p>全称是AbstractQueuedSynchronizer，阻塞式锁</p>
+<p>state：表示资源的状态（独占模式：只有一个线程能访问资源、共享模式：允许多个线程访问资源）</p>
+<p>getState - 获取state状态</p>
+<p>setState - 设置state状态</p>
+<p>compareAndSetState - cas机制设置state状态</p>
+<p>提供了FIFO的等待队列，类似于Monitor的EntryList</p>
+<p>条件变量实现等待、唤醒机制、支持多个条件变量，类似于Monitor的WaitSet</p>
+<h1 id="CountdownLatch"><a href="#CountdownLatch" class="headerlink" title="CountdownLatch"></a>CountdownLatch</h1><p>用来进行线程同步协作，等待所有线程完成倒计时</p>
+<p>构造函数用来初始化等待计数值，await用来等待计数归零才会结束，countDown用来计数减一</p>
+<p>使用场景：异步编排</p>
+<h1 id="CyclicBarrier循环栅栏"><a href="#CyclicBarrier循环栅栏" class="headerlink" title="CyclicBarrier循环栅栏"></a>CyclicBarrier循环栅栏</h1><p>循环栅栏，等待线程满足某个计数，构造时设置计数个数，每个线程执行到某个需要同步的时刻调用wait方法进行等待，但等待的线程数满足计数个数继续执行。</p>
+<h1 id="并发类"><a href="#并发类" class="headerlink" title="并发类"></a>并发类</h1><p>Blocking大部分实现基于锁，并提供用来阻塞的方法</p>
+<p>CopyOnWrite 读多写少，容器修改的开销相对较重</p>
+<p>Concurrent类型的容器：内部使用cas优化提供较高吞吐量，遍历时如果发生了修改，对于非安全容器来讲，会使用fail-fast机制让遍历立即失败，抛出ConcurrentModificationExection，不再继续遍历，</p>
+<p>弱一致性：利用迭代器遍历时，如果容器发生改变，迭代器仍然可以继续遍历，这时内容是旧的。</p>
+<p>读取弱一致性</p>
+<p>size操作未必是准确的</p>
+<h1 id="ConcurrentHashMap原理"><a href="#ConcurrentHashMap原理" class="headerlink" title="ConcurrentHashMap原理"></a>ConcurrentHashMap原理</h1><p>hashmap jdk7 put头插法，在多线程环境下会出现死链，jdk8虽然对扩容算法做了调整，不再将元素加入链表头，不意味着在多线程环境下能够安全扩容，还会出现其他问题（如扩容丢数据）</p>
+<p>第一个线程重新hash分布  哈希桶1  35-&gt;1-&gt;null</p>
+<p>第二个线程 哈希桶1  35-&gt;1-&gt;null ，继续扩容，发现35的下个节点是1继续插入，形成死链</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/09/10/SpringBoot/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2023-09-10 23:03:56
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
+                        <b>#</b> Java面试总结
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/09/10/MYSQL%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">进程与线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91Concurrent%E4%B8%8E%E5%B9%B6%E8%A1%8Cparallel"><span class="toc-number">2.</span> <span class="toc-text">并发Concurrent与并行parallel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5-%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">同步&#x2F;异步调用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">创建多线程方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">守护线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-number">6.</span> <span class="toc-text">线程的状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">7.</span> <span class="toc-text">线程的生命周期</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-number">8.</span> <span class="toc-text">线程安全问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized"><span class="toc-number">8.1.</span> <span class="toc-text">synchronized</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81001"><span class="toc-number">8.2.</span> <span class="toc-text">synchronized轻量级锁001</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized%E9%94%81%E8%86%A8%E8%83%80"><span class="toc-number">8.3.</span> <span class="toc-text">synchronized锁膨胀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized%E5%81%8F%E5%90%91%E9%94%81101"><span class="toc-number">8.4.</span> <span class="toc-text">synchronized偏向锁101</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90"><span class="toc-number">9.</span> <span class="toc-text">线程安全分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Monitor%EF%BC%88%E9%94%81%EF%BC%89%E6%A6%82%E5%BF%B5"><span class="toc-number">10.</span> <span class="toc-text">Monitor（锁）概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Park%E5%92%8CUnpark"><span class="toc-number">11.</span> <span class="toc-text">Park和Unpark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E5%92%8C%E6%B4%BB%E9%94%81"><span class="toc-number">11.1.</span> <span class="toc-text">死锁和活锁</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ReentrantLock"><span class="toc-number">12.</span> <span class="toc-text">ReentrantLock</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ReentrantLock%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">12.1.</span> <span class="toc-text">ReentrantLock实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%94%81%E6%88%90%E5%8A%9F"><span class="toc-number">12.1.1.</span> <span class="toc-text">加锁成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81%E9%87%8D%E5%85%A5%E5%8E%9F%E7%90%86"><span class="toc-number">12.2.</span> <span class="toc-text">锁重入原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E6%89%93%E6%96%AD%E5%8E%9F%E7%90%86"><span class="toc-number">12.3.</span> <span class="toc-text">可打断原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81%E5%8E%9F%E7%90%86"><span class="toc-number">12.4.</span> <span class="toc-text">公平锁原理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">13.</span> <span class="toc-text">java内存模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A0%E9%94%81%E5%B9%B6%E5%8F%91CAS%E4%B8%8Evolatile"><span class="toc-number">14.</span> <span class="toc-text">无锁并发CAS与volatile</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS%E7%9A%84%E5%B7%A5%E4%BD%9C-%E6%96%B9%E5%BC%8F"><span class="toc-number">14.1.</span> <span class="toc-text">CAS的工作 方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unsafe"><span class="toc-number">15.</span> <span class="toc-text">Unsafe</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F"><span class="toc-number">16.</span> <span class="toc-text">享元模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">17.</span> <span class="toc-text">线程池</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">18.</span> <span class="toc-text">任务调度线程池</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AQS%E5%8E%9F%E7%90%86"><span class="toc-number">19.</span> <span class="toc-text">AQS原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CountdownLatch"><span class="toc-number">20.</span> <span class="toc-text">CountdownLatch</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CyclicBarrier%E5%BE%AA%E7%8E%AF%E6%A0%85%E6%A0%8F"><span class="toc-number">21.</span> <span class="toc-text">CyclicBarrier循环栅栏</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E7%B1%BB"><span class="toc-number">22.</span> <span class="toc-text">并发类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ConcurrentHashMap%E5%8E%9F%E7%90%86"><span class="toc-number">23.</span> <span class="toc-text">ConcurrentHashMap原理</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" href="">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2023</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%A4%9A%E7%BA%BF%E7%A8%8BJUC + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F09%2F10%2F%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258BJUC%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/09/10/%E5%A4%9A%E7%BA%BF%E7%A8%8BJUC/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

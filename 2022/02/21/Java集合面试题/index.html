@@ -11,7 +11,7 @@
   
   <title>
     
-      Java集合面试题 
+      集合 
       
       
       |
@@ -70,7 +70,7 @@
         <img src="/images/avatar.png" alt="">
       
     </a>
-    <div class="nickname"><a href="/">阿磊的个人博客</a></div>
+    <div class="nickname"><a href="/">记录点滴足迹 留下美好时光</a></div>
   </div>
   <div class="navbar">
     <ul>
@@ -133,7 +133,7 @@ MathJax = {
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Java集合面试题</div>
+      <div class="post-title">集合</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间"></i>
@@ -153,7 +153,7 @@ MathJax = {
           
       </div>
       <div class="markdown-body">
-        <h3 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h3><p>通过连续的存储空间，存储相同类型元素的集合</p>
+        <h1 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h1><p>通过连续的存储空间，存储相同类型元素的集合</p>
 <p>首元素地址+（索引x元素的宽度）=索引</p>
 <p>内存存储:有序，索引：递增有序</p>
 <p>存储内容：固定，随机访问：高效</p>
@@ -162,9 +162,9 @@ MathJax = {
 <p>数组的容量不可变：是因为如果重新给变量赋值，会指向新的数组的引用地址</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int[] ints = new int[]&#123;1,2,3,4&#125;;</span><br><span class="line">System.out.println(ints.length);</span><br><span class="line">String[] strings = &#123;&quot;张三&quot;,&quot;李四&quot;&#125;;</span><br><span class="line">System.out.println(strings.length);</span><br><span class="line">//重新复制不能直接使用&#123;&#125;，必须使用new String</span><br><span class="line">strings=new String[]&#123;&quot;小王&quot;&#125;;数组的长度不可变，strings变量的引用指向了新的数组</span><br><span class="line">System.out.println(+strings.length);</span><br><span class="line">//通过索引获取元素，获取索引为0的元素</span><br><span class="line">System.out.println(strings[strings.length-1]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//当前的二维数组指的是这个一维数组的长度是5，每个位置上都是一个长度为2的一维的数组</span><br><span class="line">int[][] array2 = new int[5][2];</span><br></pre></td></tr></table></figure>
+<h1 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//当前的二维数组指的是这个一维数组的长度是5，每个位置上都是一个长度为2的一维的数组</span><br><span class="line">int[][] array2 = new int[5][2];</span><br></pre></td></tr></table></figure>
 
-<h3 id="集合Collection"><a href="#集合Collection" class="headerlink" title="集合Collection"></a>集合Collection</h3><h3 id="List-单例集合、有序、元素可重复"><a href="#List-单例集合、有序、元素可重复" class="headerlink" title="List 单例集合、有序、元素可重复"></a>List 单例集合、有序、元素可重复</h3><p>ArrayList：底层是数组，线程不安全，查询快，增删慢</p>
+<h1 id="集合Collection"><a href="#集合Collection" class="headerlink" title="集合Collection"></a>集合Collection</h1><h2 id="List-单例集合、有序、元素可重复"><a href="#List-单例集合、有序、元素可重复" class="headerlink" title="List 单例集合、有序、元素可重复"></a>List 单例集合、有序、元素可重复</h2><p>ArrayList：底层是数组，线程不安全，查询快，增删慢</p>
 <p>扩容机制：在JDK1.7的时候，实例化对象之后默认初始化容量为10</p>
 <p>​                    在JDK1.8的时候，实例化对象之后默认初始化容量为0，只有在add的时候才会对数组进行初始化一个为10的容量，每次扩容原来容量的1.5倍，将原来数组的数组原封不动的复制到新的数组里，且将Arraylist的地址指向新数组</p>
 <p>扩容：JDK1.7取余，JDK1.8是位运算右移一位相当于除以2</p>
@@ -188,18 +188,18 @@ MathJax = {
 <p>实现类PriorityQueue：，优先队列，其内部支持按照一定的规则对内部元素进行排序。</p>
 <p>Deque:   双端队列 既可以从头部插入也可以从尾部插入，既可以从头部获取，也可以从尾部获取</p>
 <p>实现类ArrayDeque、LinkedList</p>
-<h3 id="Set-单例集合、无序、元素不可重复"><a href="#Set-单例集合、无序、元素不可重复" class="headerlink" title="Set 单例集合、无序、元素不可重复"></a>Set 单例集合、无序、元素不可重复</h3><p>HashSet：基于HashMap实现，底层使用HashMap来存储元素</p>
+<h2 id="Set-单例集合、无序、元素不可重复"><a href="#Set-单例集合、无序、元素不可重复" class="headerlink" title="Set 单例集合、无序、元素不可重复"></a>Set 单例集合、无序、元素不可重复</h2><p>HashSet：基于HashMap实现，底层使用HashMap来存储元素</p>
 <p>LinkedHashSet：LinkedHashSet继承与HashSet，底层是通过LinkedHashMap实现的。</p>
 <p>TreeSet：有序，唯一，底层是红黑树（自平衡的排序二叉数）</p>
-<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><h4 id="JDK1-7底层实现：-数组-链表"><a href="#JDK1-7底层实现：-数组-链表" class="headerlink" title="JDK1.7底层实现： 数组+链表"></a>JDK1.7底层实现： 数组+链表</h4><p>链表 头插法 向下移动  容量乘以加载因子就是阈值，头插法不会遍历所有的链表，找到直接返回，尾插得遍历所有</p>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h3 id="JDK1-7底层实现：-数组-链表"><a href="#JDK1-7底层实现：-数组-链表" class="headerlink" title="JDK1.7底层实现： 数组+链表"></a>JDK1.7底层实现： 数组+链表</h3><p>链表 头插法 向下移动  容量乘以加载因子就是阈值，头插法不会遍历所有的链表，找到直接返回，尾插得遍历所有</p>
 <p>扩容：扩容原来的2倍，将旧的数组转移到先的数组中 ，在扩容的时候有可能会出现死循环死链，扩容的时候用的是头插法，导致数据的顺序发生了变化，最终出现这种情况。扩容是为了链表的长度减少，可以提高查询get的效率</p>
 <p>fash-fail快速失败机制：在遍历元素的时候，该hashmap本来就是线程不安全的，还要进行一个元素的删除，就会发生并发的问题</p>
-<h4 id="JDK1-8HashMap底层实现-数组-链表或红黑树"><a href="#JDK1-8HashMap底层实现-数组-链表或红黑树" class="headerlink" title="JDK1.8HashMap底层实现: 数组+链表或红黑树"></a>JDK1.8HashMap底层实现: 数组+链表或红黑树</h4><p>首先hashMap先从它的底层结构开始说它的底层结构在1.7和1.8版本是有点不一样的，它在1.7的时候底层数据结构是一个数组加上一个单链表，到1.8的时候它就改成了数组加上单链表或者说是一个红黑树的方式.当单链表和红黑树之间的转换，它的单链表的长度大于等于8并且它的hash桶大于等于64的时候，它会将单链表转换为红黑树形式存储，它的红黑树接节点的数量如果是小于等于6的时候，它会重新再转换成一个单链表，这是它底层结构的一个变化，另外关于它hash桶的数量，它的数量默认是16个，它的阈值默认是0.75也就是加载因子.这个还关系到它的扩容！</p>
-<h4 id="HashMap扩容问题"><a href="#HashMap扩容问题" class="headerlink" title="HashMap扩容问题"></a>HashMap扩容问题</h4><p>扩容的时候它是首先会检测数组里元素个数，因为你有一个负载因子的默认值是0.75，它含有的桶数默认是16，它的阈值是16*0.75=12，当它哈希桶占用的容量大于12的时候，它就会触发扩容，它会扩容成之间哈希桶容量的二倍，它会同乘2的N次幂，它会把之前那些元素在进行一次哈希运算，然后填充到新的哈希桶里面，然后按照链表或者红黑树的方式再排列起来.它是这么一个扩容机制.</p>
-<h4 id="hashtale"><a href="#hashtale" class="headerlink" title="hashtale"></a>hashtale</h4><p>加锁：在同时进行put的时候，hash算法之后位置不同想同时插入的情况下，在第一个属性进行put的时候，第二个属性不能同时进行put进去，必须等待第一个put成功之后才可以，</p>
-<h1 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h1><h4 id="JDK1-7底层实现"><a href="#JDK1-7底层实现" class="headerlink" title="JDK1.7底层实现:"></a>JDK1.7底层实现:</h4><p>底层结构是数组+链表，机制：采用了分段锁的机制，实现并发操作的更新。其中包含两个重要的核心内部类Segment和HashEntry。</p>
+<h3 id="JDK1-8HashMap底层实现-数组-链表或红黑树"><a href="#JDK1-8HashMap底层实现-数组-链表或红黑树" class="headerlink" title="JDK1.8HashMap底层实现: 数组+链表或红黑树"></a>JDK1.8HashMap底层实现: 数组+链表或红黑树</h3><p>首先hashMap先从它的底层结构开始说它的底层结构在1.7和1.8版本是有点不一样的，它在1.7的时候底层数据结构是一个数组加上一个单链表，到1.8的时候它就改成了数组加上单链表或者说是一个红黑树的方式.当单链表和红黑树之间的转换，它的单链表的长度大于等于8并且它的hash桶大于等于64的时候，它会将单链表转换为红黑树形式存储，它的红黑树接节点的数量如果是小于等于6的时候，它会重新再转换成一个单链表，这是它底层结构的一个变化，另外关于它hash桶的数量，它的数量默认是16个，它的阈值默认是0.75也就是加载因子.这个还关系到它的扩容！</p>
+<h3 id="HashMap扩容问题"><a href="#HashMap扩容问题" class="headerlink" title="HashMap扩容问题"></a>HashMap扩容问题</h3><p>扩容的时候它是首先会检测数组里元素个数，因为你有一个负载因子的默认值是0.75，它含有的桶数默认是16，它的阈值是16*0.75=12，当它哈希桶占用的容量大于12的时候，它就会触发扩容，它会扩容成之间哈希桶容量的二倍，它会同乘2的N次幂，它会把之前那些元素在进行一次哈希运算，然后填充到新的哈希桶里面，然后按照链表或者红黑树的方式再排列起来.它是这么一个扩容机制.</p>
+<h3 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h3><p>加锁：在同时进行put的时候，hash算法之后位置不同想同时插入的情况下，在第一个属性进行put的时候，第二个属性不能同时进行put进去，必须等待第一个put成功之后才可以，</p>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><h3 id="JDK1-7底层实现"><a href="#JDK1-7底层实现" class="headerlink" title="JDK1.7底层实现"></a>JDK1.7底层实现</h3><p>底层结构是数组+链表，机制：采用了分段锁的机制，实现并发操作的更新。其中包含两个重要的核心内部类Segment和HashEntry。</p>
 <p>Segment继承于ReentrantLock用来充当锁的角色，每一个segment锁维护着散列映射表的若干个hash桶（这里的桶指的是链表）。HashEntry用来封装映射表的键值对。</p>
-<h4 id="JDK1-8底层实现"><a href="#JDK1-8底层实现" class="headerlink" title="JDK1.8底层实现"></a>JDK1.8底层实现</h4><p>底层结构是数组+链表或红黑树，机制：抛弃了Segment分段加锁，利用CAS+Synchronized来保证并发更新的安全。</p>
+<h3 id="JDK1-8底层实现"><a href="#JDK1-8底层实现" class="headerlink" title="JDK1.8底层实现"></a>JDK1.8底层实现</h3><p>底层结构是数组+链表或红黑树，机制：抛弃了Segment分段加锁，利用CAS+Synchronized来保证并发更新的安全。</p>
 <p>CAS：比较并交换，在并发不是特别大的情况下，修改它需要先去查这个值，查询出来之后，进行修改，将修改的值进行写入的时候，比较之前查出来结果和原理有没有区别，如果没有区别就是安全的，如果有区别就不是安全的，不是使用直接加锁的方式，在低并发的情况下比较好。</p>
 <p>在大量高并发的情况下缺陷：CAS底层使用了自旋锁，对cpu的消耗还是比较大的，有可能会发生ABA的问题，就是在我第一次读和再读的时候，中间可能被第三个修改并且把这个值改回去了，这个问题可以使用AtomicStampedReference来进行加版本号解决。</p>
 <p>Synchronized：可以用在同步代码块，作用在方法之上的时候，他锁的就是this，如果是静态方法锁的就是它的class对象，Syschronized在jdk1.6之后升级还是很大的，首先是无状态的锁（就是不加锁），到偏向锁，再到轻量级锁，最后到重量级锁。</p>
@@ -208,9 +208,8 @@ MathJax = {
 <p>3.重量锁的话用的是一个互斥的过程，通过对象内部的监视器monitor实现，其中monitor的本质是依赖底层系统的mutex Lock实现，操作系统实现线程之间切换要从用户态切换至内核态，因为同步方法和同步代码块不一样。</p>
 <p> 同步代码块：在编译之后，在代码块的前后会加上两个指令，一个是mointerenter，一个是mointerexit，一个线程过来的时候，它发现它的锁标志是无锁状态，01状态，它会尝试给一个互斥锁对象，对象会跟另一个对象进行关联，就是监视器monitor，会在monitor的一个锁定器加1，并且将monitor的指针写到对象头中表示，并且修改它的锁对象标志位为1 0，就是它的重量级锁的一个标志位，以此完成换锁的过程，并且这个过程是可重入的，因为它每次不会因为出去再进来加锁和释放锁，它每次获取这个锁，让锁记录+1即可，它加完锁之后，当其他的线程过来会检查这个锁对象头中，monitor监视器锁上计数器不为0，它会在monitor监视状态下等待去竞争这个锁，如果之前的操作结束，它就退出开始释放这锁，并且逐步的将加上的锁定释放几次，将计数器清零来完成对锁的一个释放.让其他线程继续去竞争这个锁，这是它重量级锁同步代码块的一个原理。</p>
 <p>同步方法：而是ACC_SYNCHRONIZED标志位，相当于一个flag，当JVM去检测到这样一个flag，它自动去走了一个同步方法调用的策略，这个原理是比较简单的！锁降级基本上就是进入gc的时候了，所以基本不考虑锁降级。</p>
-<p>需要看的？？ReentrantLock重入锁</p>
-<p>首先从JVM层面synchronized是JVM的一个关键字，ReentrantLock其实就是一个类，你需要去手动去编码，synchronized在使用的时候比较简单，直接同步代码块或者直接同步方法，我不需要关心锁的释放，但是ReentrantLock我需要手动的去lock然后配合try finally代码块一定要去把它的锁给释放，另外就是ReentrantLock相比synchronized有几个高级特性，它提供了一个，如果一个线程长期等待不到一个锁的时候，为了防止死锁，可以去手动调用lockInterruptibly方法，尝试去释放这个锁。释放自己的资源不去等待，ReentrantLock提供了一个，可以构造公平锁的一个方式，因为它的构造函数有一个但是不推荐使用，因为它会让ReentrantLock等级下降，它提供了一个condition，可以指定去唤醒绑定到condition身上的线程，来实现选择性通知的一个机制，这是它们之间的一个区别，关于选择性，如果你不需要ReentrantLock的特性的话，还是使用synchronized，因为相比来说synchronized的话，它是JVM层面的关键字，当优化JDK的时候它会非常方便的去了解，当前的锁被那些线程所持有，这个状态的话不是ReentrantLock能相比的，还是synchronized比较好些.</p>
-<p>需要看的问题volatile关键字 ？？</p>
+<h3 id="ReentrantLock重入锁"><a href="#ReentrantLock重入锁" class="headerlink" title="ReentrantLock重入锁"></a>ReentrantLock重入锁</h3><p>首先从JVM层面synchronized是JVM的一个关键字，ReentrantLock其实就是一个类，你需要去手动去编码，synchronized在使用的时候比较简单，直接同步代码块或者直接同步方法，我不需要关心锁的释放，但是ReentrantLock我需要手动的去lock然后配合try finally代码块一定要去把它的锁给释放，另外就是ReentrantLock相比synchronized有几个高级特性，它提供了一个，如果一个线程长期等待不到一个锁的时候，为了防止死锁，可以去手动调用lockInterruptibly方法，尝试去释放这个锁。释放自己的资源不去等待，ReentrantLock提供了一个，可以构造公平锁的一个方式，因为它的构造函数有一个但是不推荐使用，因为它会让ReentrantLock等级下降，它提供了一个condition，可以指定去唤醒绑定到condition身上的线程，来实现选择性通知的一个机制，这是它们之间的一个区别，关于选择性，如果你不需要ReentrantLock的特性的话，还是使用synchronized，因为相比来说synchronized的话，它是JVM层面的关键字，当优化JDK的时候它会非常方便的去了解，当前的锁被那些线程所持有，这个状态的话不是ReentrantLock能相比的，还是synchronized比较好些.</p>
+<p>需要看的问题volatile关键字</p>
 <p>ConcurrentHashMap第一次put操作</p>
 <p>ConcurrentHashMap在构造函数中只会初始化sizeCtl值（默认为0，用来控制table的初始化和扩容操作）</p>
 <p>sizeCtl默认为0，如果ConcurrentHashMap实例化时有传参数，sizeCtl会是一个2的幂次方的值。所以 执行第一次put操作的线程会执行Unsafe.compareAndSwapInt方法修改sizeCtl为-1，有且只有一个线 程能够修改成功，其它线程通过Thread.yield()让出CPU时间片等待table初始化完成。</p>
@@ -252,7 +251,7 @@ MathJax = {
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2022/02/23/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
+              <a href="/2023/09/10/JVM/" target="_self">
                 <span>下一页</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -268,7 +267,7 @@ MathJax = {
   <div class="post-catalog hidden" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">数组的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-text">多维数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88Collection"><span class="toc-text">集合Collection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#List-%E5%8D%95%E4%BE%8B%E9%9B%86%E5%90%88%E3%80%81%E6%9C%89%E5%BA%8F%E3%80%81%E5%85%83%E7%B4%A0%E5%8F%AF%E9%87%8D%E5%A4%8D"><span class="toc-text">List 单例集合、有序、元素可重复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#elementData%E7%94%A8transient%E4%BF%AE%E9%A5%B0%EF%BC%9F"><span class="toc-text">elementData用transient修饰？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set-%E5%8D%95%E4%BE%8B%E9%9B%86%E5%90%88%E3%80%81%E6%97%A0%E5%BA%8F%E3%80%81%E5%85%83%E7%B4%A0%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D"><span class="toc-text">Set 单例集合、无序、元素不可重复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap"><span class="toc-text">HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JDK1-7%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%EF%BC%9A-%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8"><span class="toc-text">JDK1.7底层实现： 数组+链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JDK1-8HashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0-%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8%E6%88%96%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="toc-text">JDK1.8HashMap底层实现: 数组+链表或红黑树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HashMap%E6%89%A9%E5%AE%B9%E9%97%AE%E9%A2%98"><span class="toc-text">HashMap扩容问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hashtale"><span class="toc-text">hashtale</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ConcurrentHashMap"><span class="toc-text">ConcurrentHashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JDK1-7%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-text">JDK1.7底层实现:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JDK1-8%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-text">JDK1.8底层实现</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">数组的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">多维数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E5%90%88Collection"><span class="toc-number">3.</span> <span class="toc-text">集合Collection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#List-%E5%8D%95%E4%BE%8B%E9%9B%86%E5%90%88%E3%80%81%E6%9C%89%E5%BA%8F%E3%80%81%E5%85%83%E7%B4%A0%E5%8F%AF%E9%87%8D%E5%A4%8D"><span class="toc-number">3.1.</span> <span class="toc-text">List 单例集合、有序、元素可重复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#elementData%E7%94%A8transient%E4%BF%AE%E9%A5%B0%EF%BC%9F"><span class="toc-number">3.1.1.</span> <span class="toc-text">elementData用transient修饰？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Set-%E5%8D%95%E4%BE%8B%E9%9B%86%E5%90%88%E3%80%81%E6%97%A0%E5%BA%8F%E3%80%81%E5%85%83%E7%B4%A0%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D"><span class="toc-number">3.2.</span> <span class="toc-text">Set 单例集合、无序、元素不可重复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap"><span class="toc-number">3.3.</span> <span class="toc-text">HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK1-7%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%EF%BC%9A-%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8"><span class="toc-number">3.3.1.</span> <span class="toc-text">JDK1.7底层实现： 数组+链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK1-8HashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0-%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8%E6%88%96%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="toc-number">3.3.2.</span> <span class="toc-text">JDK1.8HashMap底层实现: 数组+链表或红黑树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap%E6%89%A9%E5%AE%B9%E9%97%AE%E9%A2%98"><span class="toc-number">3.3.3.</span> <span class="toc-text">HashMap扩容问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashTable"><span class="toc-number">3.3.4.</span> <span class="toc-text">HashTable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConcurrentHashMap"><span class="toc-number">3.4.</span> <span class="toc-text">ConcurrentHashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK1-7%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.4.1.</span> <span class="toc-text">JDK1.7底层实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK1-8%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.4.2.</span> <span class="toc-text">JDK1.8底层实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReentrantLock%E9%87%8D%E5%85%A5%E9%94%81"><span class="toc-number">3.4.3.</span> <span class="toc-text">ReentrantLock重入锁</span></a></li></ol></li></ol></li></ol>
     </div>
   </div>
 
@@ -336,7 +335,7 @@ MathJax = {
   
     <div class="footer-more">
       
-        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2023</a>
         
     </div>
   
@@ -577,12 +576,12 @@ MathJax = {
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F02%2F21%2FJava%25E9%259B%2586%25E5%2590%2588%25E9%259D%25A2%25E8%25AF%2595%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E9%9B%86%E5%90%88 + '&url=' + http%3A%2F%2Fexample.com%2F2022%2F02%2F21%2Fjava%25E9%259B%2586%25E5%2590%2588%25E9%259D%25A2%25E8%25AF%2595%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/02/21/Java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2022/02/21/java%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         

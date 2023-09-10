@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Spring 
+      
+      
+      |
+    
+     Welcome!MyBlog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/color-scheme.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/comments.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">记录点滴足迹 留下美好时光</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">朋友</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Spring</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2023-09-10 21:35:56
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
+                    <b>#</b> Java面试总结
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="IOC的理解？原理？实现？"><a href="#IOC的理解？原理？实现？" class="headerlink" title="IOC的理解？原理？实现？"></a>IOC的理解？原理？实现？</h2><p>谁控制谁：在之前我们都是想要什么对象需要自己来new，现在我们都将对象交给ioc容器来控制</p>
+<p>控制什么：实现过程中所需及要依赖的对象</p>
+<p>什么是反转：是由ioc容器创建之后注入到对象中，由主动创建变成了被动接收</p>
+<p>哪些方面被反转：依赖的对象</p>
+<p>总：</p>
+<p>控制反转：理论思想，原来的对象是由使用者自己来进行控制，有了spring之后，可以把整个对象交给spring来帮我们进行管理，DI：依赖注入，把对应的属性值注入到具体的对象中，使用@Autowired注解，populateBean方法来完成属性值的注入</p>
+<p>容器：存储对象，使用map结构来进行存储，在spring中一般存在三级缓存，singletonObjects存放完整的bean对象，整个bean的生命周期，从创建到使用销毁的全过程都是由容器来管理</p>
+<p>ioc他主要的思想就是控制反转和ioc容器，控制反转就是我们以前的对象要自己手动创建来控制，现在我们将对象交给ioc容器来管理，DI依赖注入，使用@Autowried将我们对应的属性值注入到对象中，populateBean方法完成对象属性的填充。ioc容器就是用来存储对象的，使用map结构来存储，一般存在三级缓存，一级缓存存放完整的对象，整个bean的生命周期，从创建到销毁都由容器来管理。</p>
+<h2 id="Spring-bean容器的生命周期？"><a href="#Spring-bean容器的生命周期？" class="headerlink" title="Spring bean容器的生命周期？"></a>Spring bean容器的生命周期？</h2><p>1.实例化bean对象</p>
+<p>通过反射的方式进行对象的创建，只是在堆空间中申请空间，属性都是默认值</p>
+<p>2.填充bean的属性</p>
+<p>给对象的属性设置值，比如使用set或者@autowried设置值，populateBean(),循环依赖的问题（三级缓存）</p>
+<p>3.调用Aware相关接口的方法</p>
+<p>如果对象中需要引用容器内部的对象，需要调用aware接口的子类方法来进行统一的设置</p>
+<p>完成BeanName，BeanFactory，BeanFactory，BeanClassLoader对象的属性设置</p>
+<p>4.BeanPostProcessor的前置处理</p>
+<p>对生成的bean对象进行前置的处理工作</p>
+<p>5.检查是否是InitializingBean的子类来决定是否调用afterPropertiesSet方法</p>
+<p>判断当前bean对象是否设置了InitializingBean接口，然后进行属性的设置等基本工作</p>
+<p>6.检车是否配置有自定义的init-method方法</p>
+<p>如果当前bean对象定义了初始化方法，那么在此处调用初始化方法</p>
+<p>7.BeanPostProcessor后置处理</p>
+<p>对生成的bean对象进行后置的处理</p>
+<p>执行完一系列的操作就可以使用getBean来获取对象了</p>
+<p>8.注册必要的Destruction相关回调接口</p>
+<p>方便对象进行销毁的操作</p>
+<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>通过为 目标类 织入切面 的方式，实现对目标类的增强。根据织入的时间点不同可以选择不同的时机进行织入：</p>
+<p>1.编译器织入：将两个.java文件，编译为一个.class文件，依赖编译器</p>
+<p>2.类加载器织入：将两个.class文件，加载到classLoder类加载器，在内存中就是字节数组，然后进行数组的合并，自定义类加载器或类转换器横切逻辑织入到目标类中，然后修改.class文件交给jvm加载，这种织入方式叫LTW</p>
+<p>3.运行期织入：等类加载到内存中，通过动态代理方式proxy、cglib生成子类来完成织入</p>
+<p>aop和aspect互补，不是竞争</p>
+<h2 id="谈谈你对AOP的理解？"><a href="#谈谈你对AOP的理解？" class="headerlink" title="谈谈你对AOP的理解？"></a>谈谈你对AOP的理解？</h2><p>作用：面向切面编程，主要是用来在业务上做解耦的。</p>
+<p>话术解释：将公共业务代码逻辑抽象出一个切面，然后注入到目标对象的业务中，比如日志，事务，权限等核心服务组件，AOP就是这么执行的，通过动态代理的方式，将需要注入切面的对象进行代理，在调用的时候，将公共逻辑直接添加进去，不需要更改原有的业务逻辑，只是在原有的业务基础逻辑上做了一些增强功能。</p>
+<p>切面Aspect：关注点的模块化，在service方法中前后进行方法增强</p>
+<p>连接点Join Point：程序执行过程中特定的点，比如方法调用的时候和处理异常的时候</p>
+<p>通知advice:把通知放在连接点的前边或者后边</p>
+<p>切入点Poincut:匹配连接点的断言表达式</p>
+<p>引入Introduction:允许引入新的接口以及一个对应的实现到任何被代理的对象。</p>
+<p>目标对象 Target：被一个或多个切面所通知的对象</p>
+<p>AOP代理：在Spring中可以是jdk动态代理或者CGLIB代理</p>
+<p>织入：把切面连接到其他应用程序或对象上</p>
+<p>总：aop概念，应用场景，动态代理</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>aop是ioc的一个扩展功能，只是在ioc的整个流程中新增的一个扩展点。</p>
+<p>在bean的创建过程中可以对bean进行扩展实现：</p>
+<p>1.代理对象创建的过程 advice，切面，切点</p>
+<p>2.通过jdk或者cglib的方式来生成代理对象</p>
+<h1 id="Spring的传播事务？"><a href="#Spring的传播事务？" class="headerlink" title="Spring的传播事务？"></a>Spring的传播事务？</h1><p>事务的传播特性指的是不同方法的嵌套调用过程中，事务该如何进行处理，是一个事务还是不同的事务，当出现异常的时候会还是提交，在日常工作中常用的是REQUIRED、REQUIRED_NEW、NESTED</p>
+<h2 id="传播特性有7种"><a href="#传播特性有7种" class="headerlink" title="传播特性有7种"></a>传播特性有7种</h2><p>REQUIRED：默认传播特性，如果当前事务存在，就用这个事务，如果当前事务不存在，就新建一个事务。</p>
+<p>REQUIRED_NEW：不管当前没有事务的存在，都会新建一个新事物。</p>
+<p>NESTED：如果当前存在事务，则在嵌套事务中执行，否则和REQUIRED执行的操作一样。嵌套事务：在事务A方法中设置一个保存点，如果事务B在执行中出现错误则会回滚。</p>
+<p>SUPPORTS:如果当前事务存在，就用这个事务，如果当前不存在事务，就使用非事务的方式。</p>
+<p>NOT_SUPPORTS：以非事务的方式执行，如果存在事务，则挂起事务不让他执行。</p>
+<p>NEVER:如果存在事务就会抛出异常，如果不存在事务就会正常允许。</p>
+<p>MANDATORY:如果当前事务存在，就用这个事务，如果不存在事务，就会抛出异常。</p>
+<p>NESTED和REQUIRED_NEW的区别：</p>
+<p>REQUIRED_NEW是新建一个事务并且新开始的这个事务与原有事务无关，而NESTED则是当前存在事务时会开启一个嵌套事务，在NESTED情况下，父事务回滚时，子事务也会回滚，而REQUIRED_NEW情况下，原有事务回滚，不会影响新开启的事务</p>
+<p>NESTED和REQUIRED的区别：</p>
+<p>REQUIRED情况下，调用方存在事务时，则被调用方和调用方使用同一个事务，那么被调用方出现异常时，由于共用一个事务,所以无论是否catch异常,事务都会回滚,而在NESTED情况下,被调用方发生异常时,调用方可以catch其异常，这样只有子事务回滚，父事务不会回滚。</p>
+<h2 id="Spring用到了哪些设计模式及应用场景？"><a href="#Spring用到了哪些设计模式及应用场景？" class="headerlink" title="Spring用到了哪些设计模式及应用场景？"></a>Spring用到了哪些设计模式及应用场景？</h2><p>工厂模式：在各种BeanFactory以及ApplicationContext创建中用到了</p>
+<p>模块模式：让子类扩展实现</p>
+<p>代理模式：Aspect AOP的底层用了动态代理，jdk，cglib</p>
+<p>策略模式：进行不同的操作要用不同的方法实现逻辑来处理</p>
+<p>单例模式：在创建bean的时候</p>
+<p>观察者模式：容器刷新</p>
+<p>适配器模式：springmvc上的Adapter</p>
+<p>装饰者模式：源码带Wrapper或者Decorator都是对象的封装，提供一些属性的插入</p>
+<h3 id="Spring是如何解决循环依赖的问题的？"><a href="#Spring是如何解决循环依赖的问题的？" class="headerlink" title="Spring是如何解决循环依赖的问题的？"></a>Spring是如何解决循环依赖的问题的？</h3><p>三级缓存，提前暴露对象，aop</p>
+<p>什么是循环依赖问题：A依赖B，B依赖A</p>
+<p>先说明bean的创建过程，先实例化，然后初始化（填充属性）</p>
+<p>形成闭环的原因：</p>
+<p>先创建A对象，实例化A对象，此时A对象中的b属性为空，填充属性b</p>
+<p>从容器中查找B对象，如果找到了直接赋值不存在循环依赖问题（不通），找不到直接创建B对象</p>
+<p>实例化B对象，此时B对象中的a属性为空,填充属性a</p>
+<p>从容器中查找A对象，找不到直接创建</p>
+<p>仔细琢磨的话，会发现A对象是存在的，只不过此时的A对象不是一个完整状态，只是完成了实例化但是未初始化。在调用过程中，拥有了某个对象的引用，能否在后期完成赋值操作，可以优先把非完整状态对象优先赋值，等待后续操作来完成赋值，相当于提前暴露了某个不完整的对象引用，核心在于实例化和初始化分开操作，这也是解决循环依赖问题关键。</p>
+<p>当所有的对象都完成实例化和初始化操作之后，还要把完整对象放到容器中，此时容器存在两个状态实例化未初始化、完整状态，都在容器中，用不同的map结构来存储，此时就有了一级缓存和二级缓存，如果一级缓存有，那么二级缓存就不会存在同名的对象，因为他们的查找顺序是1级、2级、3级这样的方式来查找的，一级存放的是完整对象，二级存放的是非完整对象</p>
+<p>为什么需要三级缓存？三级缓存的value类型是Object是一个函数式接口，存在的意义是保证在整个容器的运行过程中同名的bean只能有一个。</p>
+<p>如果一个对象需要被代理，或者说需要生成对象，那么要优先创建一个普通对象。</p>
+<p>普通对象和代理对象不能同时出现在容器中，因此当一个对象需要被代理的时候，就要用代理对象覆盖之前的普通对象，在实际的调用过程中，是没有办法确定什么时候被使用，所以当某个对象被调用的时候，优先判断此对象是否被代理，类似于一种回调机制的实现，可以通过lamdba表达式来执行对象的覆盖过程。</p>
+<h3 id="缓存的放置时间和删除？"><a href="#缓存的放置时间和删除？" class="headerlink" title="缓存的放置时间和删除？"></a>缓存的放置时间和删除？</h3><p>三级缓存：createBeanInstance之后，addSingletonFactory</p>
+<p>二级缓存：第一次从三级缓存确定对象是代理对象还是普通对象的时候，同时删除三级缓存getSingleton</p>
+<p>一级缓存:生成完整对象之后放到一级缓存，删除二三级缓存 addSingleton</p>
+<h3 id="BeanFactory和Factorybean有什么区别？"><a href="#BeanFactory和Factorybean有什么区别？" class="headerlink" title="BeanFactory和Factorybean有什么区别？"></a>BeanFactory和Factorybean有什么区别？</h3><p>相同点：都是用来创建bean对象的</p>
+<p>不同点：使用BeanFactory创建对象的时候，必须遵循严格的生命周期，如果想要简单的自定义某个对象的创建，同时创建完成的对象想交给spring来管理，就需要实现Factorybean接口了</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/09/10/JVM/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2023-09-10 21:35:56
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Java%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" title="Java面试总结">
+                        <b>#</b> Java面试总结
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/09/10/SpringBoot/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F%E5%8E%9F%E7%90%86%EF%BC%9F%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">IOC的理解？原理？实现？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-bean%E5%AE%B9%E5%99%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">Spring bean容器的生命周期？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AOP"><span class="toc-number"></span> <span class="toc-text">AOP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9AOP%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">谈谈你对AOP的理解？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">概念</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E7%9A%84%E4%BC%A0%E6%92%AD%E4%BA%8B%E5%8A%A1%EF%BC%9F"><span class="toc-number"></span> <span class="toc-text">Spring的传播事务？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E6%92%AD%E7%89%B9%E6%80%A7%E6%9C%897%E7%A7%8D"><span class="toc-number">1.</span> <span class="toc-text">传播特性有7种</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E7%94%A8%E5%88%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">Spring用到了哪些设计模式及应用场景？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E7%9A%84%E9%97%AE%E9%A2%98%E7%9A%84%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">Spring是如何解决循环依赖的问题的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E6%94%BE%E7%BD%AE%E6%97%B6%E9%97%B4%E5%92%8C%E5%88%A0%E9%99%A4%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">缓存的放置时间和删除？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanFactory%E5%92%8CFactorybean%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">BeanFactory和Factorybean有什么区别？</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" href="">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2023</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Spring + '&url=' + http%3A%2F%2Fexample.com%2F2023%2F09%2F10%2FSpring%25E9%259D%25A2%25E8%25AF%2595%25E9%25A2%2598%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2023/09/10/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
